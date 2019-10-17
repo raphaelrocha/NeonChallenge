@@ -5,9 +5,18 @@ import Profile from "./src/modules/profile/Profile";
 import Contacts from "./src/modules/contacts/Contacts";
 
 const MainNavigator = createStackNavigator({
-  Home: {screen: Profile},
-  Profile: {screen: Contacts},
-});
+  Profile: {screen: Profile},
+  Contacts: {screen: Contacts},
+}
+,{
+  headerMode: 'none',
+  navigationOptions: {
+    headerVisible: false,
+  }
+}
+);
+
+console.disableYellowBox = true;
 
 const App = createAppContainer(MainNavigator);
 

@@ -1,25 +1,36 @@
 import React, {Component} from 'react';
-import {Text, View} from "react-native";
+import {Text, View, TouchableOpacity, StyleSheet} from "react-native";
 
 export default class Profile extends Component{
 
-    static navigationOptions = {
-        title: 'Perfil',
-    };
-
     constructor(props) {
         super(props);
-
     }
+
+    goToContacts = () => {
+        const {navigate} = this.props.navigation;
+        navigate('Contacts', {name: 'Jane'})
+    };
 
     render(){
         return (
-            <View>
-                <Text>
-                    Tela de perfil
-                </Text>
+            <View style={styles.container}>
+                <TouchableOpacity
+                    onPress={this.goToContacts.bind(this)}
+                >
+                    <Text>
+                        Tela de perfil
+                    </Text>
+                </TouchableOpacity>
+
             </View>);
     }
 
 }
+
+const styles = StyleSheet.create({
+    container:{
+        marginTop:20,
+    }
+})
 
