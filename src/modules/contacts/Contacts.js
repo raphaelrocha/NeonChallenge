@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity} from 'react-native';
+import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Toolbar from "../toolbar/Toolbar";
+import colors from "../../constants/colors";
 
 export default class Contacts extends Component{
 
@@ -21,6 +22,7 @@ export default class Contacts extends Component{
                 <Toolbar
                     navigation={this.props.navigation}
                     title='Contatos'
+                    backgroundColor={colors.BLUE_200}
                 />
                 <TouchableOpacity
                     onPress={this.backPress.bind(this)}
@@ -32,5 +34,4 @@ export default class Contacts extends Component{
 
             </View>);
     }
-
 }

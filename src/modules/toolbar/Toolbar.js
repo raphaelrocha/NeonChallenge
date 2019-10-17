@@ -1,24 +1,24 @@
 import React, { Component } from 'react';
 import { View, TouchableOpacity, Image, StyleSheet, Platform, Text } from 'react-native';
 import images from "../../assets/images";
+import colors from "../../constants/colors";
 
 export default class Toolbar extends Component{
 
     constructor(props) {
         super(props);
-
     }
 
     render(){
 
-        let {title} = this.props;
+        let {title,backgroundColor} = this.props;
 
         if(title){
             title = title.toUpperCase();
         }
 
         return (
-            <View style={styles.container}>
+            <View style={[styles.container,{backgroundColor}]}>
 
                 <TouchableOpacity
                     onPress={()=>this.props.navigation.goBack()}
@@ -47,6 +47,7 @@ export default class Toolbar extends Component{
 
 const styles = StyleSheet.create({
     container:{
+        backgroundColor: colors.WHITE_1000,
         flexDirection:'row',
         marginTop:Platform.select({'ios':20}),
         height: 56,
