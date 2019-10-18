@@ -2,7 +2,6 @@ import React, {Component} from 'react';
 import {Text, TouchableOpacity, View} from 'react-native';
 import Toolbar from "../toolbar/Toolbar";
 import colors from "../../constants/colors";
-import GetContacts from "./commands/GetContacts";
 
 export default class Contacts extends Component{
 
@@ -15,13 +14,7 @@ export default class Contacts extends Component{
     }
 
     getContacts = async () => {
-        try {
-            let command = new GetContacts();
-            let result = await command.execute();
-            console.log('NA TELA',result);
-        }catch (e) {
-            console.warn('NA TELA',e);
-        }
+
     };
 
     backPress = () => {
