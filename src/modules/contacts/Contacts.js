@@ -2,13 +2,27 @@ import React, {Component} from 'react';
 import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
 import Toolbar from "../toolbar/Toolbar";
 import colors from "../../constants/colors";
+import GetContacts from "./commands/GetContacts";
 
 export default class Contacts extends Component{
 
     constructor(props) {
         super(props);
-
     }
+
+    componentDidMount() {
+        this.getContacts();
+    }
+
+    getContacts = async () => {
+        try {
+            let command = new GetContacts();
+            let result = await command.execute();
+            console.log('NA TELA',result);
+        }catch (e) {
+            console.warn('NA TELA',e);
+        }
+    };
 
     backPress = () => {
         const {goBack} = this.props.navigation;
@@ -16,7 +30,6 @@ export default class Contacts extends Component{
     };
 
     render(){
-        console.warn(this.props.navigation);
         return (
             <View>
                 <Toolbar
