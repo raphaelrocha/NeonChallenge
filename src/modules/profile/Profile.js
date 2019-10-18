@@ -1,11 +1,27 @@
 import React, {Component} from 'react';
 import {Text, View, TouchableOpacity, StyleSheet} from "react-native";
+import GetContacts from "../contacts/commands/GetContacts";
+import GetProfile from "./commands/GetProfile";
 
 export default class Profile extends Component{
 
     constructor(props) {
         super(props);
     }
+
+    componentDidMount() {
+        this.getProfile();
+    }
+
+    getProfile = async () => {
+        try {
+            let command = new GetProfile();
+            let result = await command.execute();
+            console.log('NA TELA',result);
+        }catch (e) {
+            console.warn('NA TELA',e);
+        }
+    };
 
     goToContacts = () => {
         const {navigate} = this.props.navigation;
