@@ -1,6 +1,5 @@
 import React, {Component} from 'react';
-import {Text, View, TouchableOpacity, StyleSheet} from "react-native";
-import GetContacts from "../contacts/commands/GetContacts";
+import {StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import GetProfile from "./commands/GetProfile";
 
 export default class Profile extends Component{

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, Text, TouchableOpacity, StyleSheet} from 'react-native';
+import {Text, TouchableOpacity, View} from 'react-native';
 import Toolbar from "../toolbar/Toolbar";
 import colors from "../../constants/colors";
 import GetContacts from "./commands/GetContacts";
