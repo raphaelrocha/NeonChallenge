@@ -6,12 +6,23 @@ import images from "../../assets/images";
 import SessionManager from "../../__mocks__/SessionManager";
 import Loading from "../../components/Loading";
 import SendMoneyItem from "./components/SendMoneyItem";
+import SendMoneyItemLoading from "./components/SendMoneyItemLoading";
 
 export default class SendMoney extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {};
+
+        /*
+        Itens temporários para mostra o elemento da lista enquanto carrega a lista.
+         */
+        let contacts = [];
+
+        for(let i = 0; i<10; i++){
+            contacts.push(i);
+        }
+
+        this.state = {loading:true,contacts};
     }
 
     componentDidMount() {
@@ -19,24 +30,27 @@ export default class SendMoney extends Component{
         sessionManager.loadContacts()
             .then(contacts=>{
                 console.log(contacts);
-                this.setState({contacts})
+                // this.setState({contacts})
             })
             .catch(error=>{
                 console.log('erro do load data',error);
             })
     }
 
-    listEmptyComponent = () => {
-        console.log('lsita vazia');
-        return (
-            <View style={styles.emptyListContainer}>
-                <Text> loading...</Text>
-                <Loading/>
-            </View>
-        );
-    };
+    // listEmptyComponent = () => {
+    //     console.log('lsita vazia');
+    //     return (
+    //         <View style={styles.emptyListContainer}>
+    //             <Loading/>
+    //         </View>
+    //     );
+    // };
 
     renderItem = (item,index) => {
+
+        if(this.state.loading){
+            return <SendMoneyItemLoading/>
+        }
         return (
             <SendMoneyItem
                 item={item}
@@ -66,7 +80,7 @@ export default class SendMoney extends Component{
                 <FlatList
                     style={styles.list}
                     bounces={ false }
-                    ListEmptyComponent={this.listEmptyComponent.bind(this)}
+                    // ListEmptyComponent={this.listEmptyComponent.bind(this)}
                     showsVerticalScrollIndicator={ false }
                     keyExtractor={ (item, index) => index.toString() }
                     data={ contacts }
@@ -79,6 +93,7 @@ export default class SendMoney extends Component{
 const styles = StyleSheet.create({
     container:{
         height: '100%',
+        flex: 1,
         flexDirection: 'column',
     },
     background:{
@@ -95,8 +110,6 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     emptyListContainer:{
-        height: '100%',
-        width: '100%',
-        backgroundColor: 'red'
+        justifyContent:'center',
     }
 });
