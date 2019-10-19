@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
     content:{
         padding: 20,
         borderRadius: 20,
-        backgroundColor: colors.LIGHT_BLUE_800,
+        backgroundColor: colors.BLUE_GREY_400,
         width: '80%',
         alignItems: 'center',
     },
@@ -127,6 +127,7 @@ const styles = StyleSheet.create({
         resizeMode: 'contain',
     },
     name:{
+        marginTop: 5,
         fontSize: 20,
         fontWeight: 'bold',
         color: colors.WHITE_1000,
@@ -150,7 +151,7 @@ const styles = StyleSheet.create({
         width: '100%',
         fontWeight: 'bold',
         fontSize: 30,
-        color: colors.GREEN_300,
+        color: colors.CYAN_500,
         backgroundColor: colors.WHITE_1000
     },
     sendButton:{
@@ -166,6 +167,5 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: colors.WHITE_1000,
         fontSize: 20,
-
     }
 });
