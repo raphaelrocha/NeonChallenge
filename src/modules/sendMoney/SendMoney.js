@@ -7,6 +7,7 @@ import SessionManager from "../../__mocks__/SessionManager";
 import Loading from "../../components/Loading";
 import SendMoneyItem from "./components/SendMoneyItem";
 import SendMoneyItemLoading from "./components/SendMoneyItemLoading";
+import {sleep} from "../../helpers/tools";
 
 export default class SendMoney extends Component{
 
@@ -26,24 +27,37 @@ export default class SendMoney extends Component{
     }
 
     componentDidMount() {
-        let sessionManager = new SessionManager();
-        sessionManager.loadContacts()
-            .then(contacts=>{
+        this.loadContent();
+
+    }
+
+    loadContent = async () => {
+        try{
+            await sleep(2000);
+            let sessionManager = new SessionManager();
+            let contacts = await sessionManager.loadContacts();
+            if(contacts){
                 console.log(contacts);
                 this.setState({contacts,loading:false})
-            })
-            .catch(error=>{
-                console.log('erro do load data',error);
-            })
-    }
+            }
+        }catch (e) {
+            console.log('erro do load data',e);
+        }
+
+
+    };
 
     renderItem = (item,index) => {
 
+        let {contacts} = this.state;
+
         if(this.state.loading){
-            return <SendMoneyItemLoading/>
+            return <SendMoneyItemLoading
+                lastItem={index === contacts.length-1}
+            />
         }
 
-        let {contacts} = this.state;
+
         return (
             <SendMoneyItem
                 item={item}

@@ -6,14 +6,26 @@ export default class SendMoneyItemLoading extends Component{
 
     constructor(props) {
         super(props);
-
     }
 
     render(){
-        return (
-            <View style={styles.container}>
 
-                <View style={styles.avatar}/>
+        let {lastItem} = this.props;
+
+        let styleLastItem;
+
+        if(lastItem){
+            styleLastItem = {borderBottomWidth:0}
+        }
+        return (
+            <View style={[styles.container,styleLastItem]}>
+
+                <View style={styles.avatarContainer}>
+
+                    <View style={styles.avatar}/>
+
+                </View>
+
 
                 <View style={styles.content}>
 
@@ -30,16 +42,27 @@ export default class SendMoneyItemLoading extends Component{
 
 const styles = StyleSheet.create({
     container:{
-        borderRadius: 10,
-        padding: 10,
+        paddingTop: 16,
+        paddingBottom: 16,
         flexDirection: 'row',
-        margin: 5,
+        borderBottomWidth:2,
+        borderColor: colors.LIGHT_BLUE_400,
+    },
+    avatarContainer:{
+        alignSelf: 'center',
+        height: 70,
+        width: 70,
+        borderRadius: 35,
+        borderWidth:3,
+        borderColor:colors.LIGHT_BLUE_300,
+        alignItems: 'center',
+        justifyContent: 'center',
         backgroundColor: colors.ALPHA_GREY_46,
     },
     avatar:{
-        borderRadius: 35,
-        height: 70,
-        width: 70,
+        borderRadius: 64/2,
+        height: 64,
+        width: 64,
         backgroundColor: colors.ALPHA_GREY_46
     },
     content:{
@@ -48,14 +71,16 @@ const styles = StyleSheet.create({
         width: '100%',
     },
     name:{
+        borderRadius: 5,
         marginTop: 5,
-        width: '100%',
+        width: '70%',
         height: 20,
         backgroundColor: colors.ALPHA_GREY_46
     },
     phone:{
+        borderRadius: 5,
         marginTop: 10,
-        width: '70%',
+        width: '45%',
         height: 20,
         backgroundColor: colors.ALPHA_GREY_46
     }
