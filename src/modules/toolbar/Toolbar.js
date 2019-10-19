@@ -3,6 +3,9 @@ import {Image, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-n
 import images from "../../assets/images";
 import colors from "../../constants/colors";
 
+export const DARK = 'dark-contect';
+export const LIGHT = 'light-contect';
+
 export default class Toolbar extends Component{
 
     constructor(props) {
@@ -11,7 +14,19 @@ export default class Toolbar extends Component{
 
     render(){
 
-        let {title,backgroundColor} = this.props;
+        let {title,backgroundColor,barStyle} = this.props;
+
+        if(!barStyle){
+            barStyle = DARK;
+        }
+
+        let iconColor;
+        let titleColor;
+
+        if(barStyle === LIGHT){
+            iconColor = {tintColor:colors.WHITE_1000}
+            titleColor = {color:colors.WHITE_1000}
+        }
 
         if(title){
             title = title.toUpperCase();
@@ -25,7 +40,7 @@ export default class Toolbar extends Component{
                     style={styles.backContainer}>
 
                     <Image
-                        style={styles.backIcon}
+                        style={[styles.backIcon,iconColor]}
                         source={images.chevronLeft}
                     />
 
@@ -33,7 +48,7 @@ export default class Toolbar extends Component{
 
                 <View style={styles.titleContainer}>
 
-                    <Text style={styles.title}>
+                    <Text style={[styles.title,titleColor]}>
                         {title}
                     </Text>
 
@@ -44,6 +59,8 @@ export default class Toolbar extends Component{
     }
 
 }
+
+
 
 const styles = StyleSheet.create({
     container:{

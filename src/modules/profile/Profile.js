@@ -23,9 +23,14 @@ export default class Profile extends Component{
             })
     }
 
-    goToContacts = () => {
+    goToSendMoney = () => {
         const {navigate} = this.props.navigation;
-        navigate('Contacts', {name: 'Jane'})
+        navigate('SendMoney', {name: 'Jane'})
+    };
+
+    goToTransferHistory = () => {
+        const {navigate} = this.props.navigation;
+        navigate('TransferHistory', {name: 'Jane'})
     };
 
     render(){
@@ -37,18 +42,20 @@ export default class Profile extends Component{
         }
 
         return (
-            <View
-                style={styles.container}>
+            <View style={styles.container}>
+
                 <Image
                     style={styles.background}
                     source={images.bgGrad}
                 />
 
                 <View style={styles.avatarContainer}>
+
                     <Image
                         style={styles.avatar}
                         source={{uri:profile.picture.large}}
                     />
+
                 </View>
 
                 <Text style={styles.name}>
@@ -63,28 +70,28 @@ export default class Profile extends Component{
 
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={this.goToContacts.bind(this)}
-                    >
+                        onPress={this.goToSendMoney.bind(this)}>
+
                         <Text style={styles.buttonText}>
                             ENVIAR DINHEIRO
                         </Text>
+
                     </TouchableOpacity>
 
                     <TouchableOpacity
                         style={styles.button}
-                        onPress={this.goToContacts.bind(this)}
-                    >
+                        onPress={this.goToTransferHistory.bind(this)}>
+
                         <Text style={styles.buttonText}>
                             HISTÓRICO DE ENVIOS
                         </Text>
+
                     </TouchableOpacity>
 
                 </View>
 
-
             </View>);
     }
-
 }
 
 const styles = StyleSheet.create({
