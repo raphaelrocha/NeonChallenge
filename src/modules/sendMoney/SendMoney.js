@@ -42,10 +42,12 @@ export default class SendMoney extends Component{
         if(this.state.loading){
             return <SendMoneyItemLoading/>
         }
+
+        let {contacts} = this.state;
         return (
             <SendMoneyItem
                 item={item}
-                lastItem={false}
+                lastItem={index === contacts.length-1}
             />
         );
     };
@@ -96,8 +98,10 @@ const styles = StyleSheet.create({
         zIndex:0,
     },
     list:{
+        flex: 1,
+        marginLeft: 10,
+        marginRight: 10,
         height: '100%',
-        width: '100%',
     },
     emptyListContainer:{
         justifyContent:'center',

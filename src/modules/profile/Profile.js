@@ -12,8 +12,12 @@ export default class Profile extends Component{
     }
 
     componentDidMount() {
+        this.loadAppData();
+    }
+
+    loadAppData = async () => {
         let sessionManager = new SessionManager();
-        sessionManager.clear();
+        await sessionManager.clear();
         sessionManager.loadProfile()
             .then(profile=>{
                 this.setState({profile})
@@ -21,7 +25,7 @@ export default class Profile extends Component{
             .catch(error=>{
                 console.log('erro do load data',error);
             })
-    }
+    };
 
     goToSendMoney = () => {
         const {navigate} = this.props.navigation;
