@@ -1,17 +1,8 @@
 import Storage from "../helpers/Storage";
 import GetProfile from "../modules/profile/commands/GetProfile";
+import GetContacts from "../modules/sendMoney/commands/GetContacts";
 
 export default class SessionManager {
-
-    start = async () => {
-        try {
-            let profile = await this.loadProfile();
-            let contacts = await this.loadContacts();
-            return {profile,contacts};
-        }catch (e) {
-            throw "erro ao carregar dados.";
-        }
-    };
 
     loadProfile = async () => {
         try{
@@ -36,7 +27,7 @@ export default class SessionManager {
             if(contacts){
                 return contacts;
             }else{
-                let command = new GetProfile();
+                let command = new GetContacts();
                 let response = await command.execute();
                 contacts = response.results;
                 await Storage.saveContacts(contacts);
@@ -46,4 +37,8 @@ export default class SessionManager {
             throw 'erro ao carregar contatos.';
         }
     };
+
+    clear = async () => {
+        await Storage.clear();
+    }
 }

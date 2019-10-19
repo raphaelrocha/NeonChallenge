@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image, Platform, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
-import images from "../../assets/images";
-import colors from "../../constants/colors";
+import images from "../assets/images";
+import colors from "../constants/colors";
 
 export const DARK = 'dark-contect';
 export const LIGHT = 'light-contect';

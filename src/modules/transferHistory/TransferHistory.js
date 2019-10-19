@@ -2,7 +2,7 @@ import React, {Component} from 'react';
 import {Image, StyleSheet, View} from 'react-native';
 import colors from "../../constants/colors";
 import images from "../../assets/images";
-import Toolbar, {LIGHT} from "../toolbar/Toolbar";
+import Toolbar, {LIGHT} from "../../components/Toolbar";
 
 export default class TransferHistory extends Component{
 

@@ -8,15 +8,15 @@ export default class Profile extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {}
+        this.state = {};
     }
 
     componentDidMount() {
-        let loadData = new SessionManager();
-        loadData.start()
-            .then(result=>{
-                console.log('resultado do load data',result);
-                this.setState({profile:result.profile})
+        let sessionManager = new SessionManager();
+        sessionManager.clear();
+        sessionManager.loadProfile()
+            .then(profile=>{
+                this.setState({profile})
             })
             .catch(error=>{
                 console.log('erro do load data',error);
