@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, View} from 'react-native';
+import {StyleSheet, View} from 'react-native';
 import colors from "../../../constants/colors";
 
 export default class SendMoneyItemLoading extends Component{
@@ -12,17 +12,20 @@ export default class SendMoneyItemLoading extends Component{
     render(){
         return (
             <View style={styles.container}>
-                <View
-                    style={styles.avatar}
-                />
+
+                <View style={styles.avatar}/>
+
                 <View style={styles.content}>
+
                     <View style={styles.name}/>
+
                     <View style={styles.phone}/>
+
                 </View>
+
             </View>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -52,7 +55,7 @@ const styles = StyleSheet.create({
     },
     phone:{
         marginTop: 10,
-        width: '70%%',
+        width: '70%',
         height: 20,
         backgroundColor: colors.ALPHA_GREY_46
     }

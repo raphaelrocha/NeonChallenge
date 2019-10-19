@@ -14,7 +14,7 @@ export default class SendMoney extends Component{
         super(props);
 
         /*
-        Itens temporários para mostra o elemento da lista enquanto carrega a lista.
+        Itens temporários para mostrar o elementos na lista enquanto carrega a lista.
          */
         let contacts = [];
 
@@ -30,21 +30,12 @@ export default class SendMoney extends Component{
         sessionManager.loadContacts()
             .then(contacts=>{
                 console.log(contacts);
-                // this.setState({contacts})
+                this.setState({contacts,loading:false})
             })
             .catch(error=>{
                 console.log('erro do load data',error);
             })
     }
-
-    // listEmptyComponent = () => {
-    //     console.log('lsita vazia');
-    //     return (
-    //         <View style={styles.emptyListContainer}>
-    //             <Loading/>
-    //         </View>
-    //     );
-    // };
 
     renderItem = (item,index) => {
 
@@ -80,7 +71,6 @@ export default class SendMoney extends Component{
                 <FlatList
                     style={styles.list}
                     bounces={ false }
-                    // ListEmptyComponent={this.listEmptyComponent.bind(this)}
                     showsVerticalScrollIndicator={ false }
                     keyExtractor={ (item, index) => index.toString() }
                     data={ contacts }

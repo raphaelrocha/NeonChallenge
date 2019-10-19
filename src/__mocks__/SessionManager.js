@@ -1,6 +1,7 @@
 import Storage from "../helpers/Storage";
 import GetProfile from "../modules/profile/commands/GetProfile";
 import GetContacts from "../modules/sendMoney/commands/GetContacts";
+import {sleep} from "../helpers/tools";
 
 export default class SessionManager {
 
@@ -22,6 +23,11 @@ export default class SessionManager {
     };
 
     loadContacts = async () => {
+        /*
+        A api escolhida retorna bem rapido ai coloquei este sleep para simular uma lentidao de rede e assim
+        ver o loading nas telas.
+         */
+        await sleep(2000);
         try{
             let contacts = await Storage.getContacts();
             if(contacts){

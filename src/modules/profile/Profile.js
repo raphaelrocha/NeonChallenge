@@ -118,6 +118,7 @@ const styles = StyleSheet.create({
         borderColor:colors.WHITE_1000,
         alignItems: 'center',
         justifyContent: 'center',
+        backgroundColor: colors.ALPHA_GREY_46,
     },
     avatar:{
         height: 140,
