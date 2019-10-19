@@ -38,7 +38,7 @@ export default class SendMoney extends Component{
 
     loadContent = async () => {
         try{
-            await sleep(2000);
+            // await sleep(2000);
             let sessionManager = new SessionManager();
             let contacts = await sessionManager.loadContacts();
             if(contacts){
@@ -51,7 +51,8 @@ export default class SendMoney extends Component{
     };
 
     sendMoney = (data,value) => {
-        this.setState({showModal:false})
+        this.setState({showModal:false});
+        console.warn('para mandar',data,value);
     };
 
     renderItem = (item,index) => {

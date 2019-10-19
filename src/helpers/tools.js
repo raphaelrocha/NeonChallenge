@@ -3,3 +3,7 @@ export function sleep(ms) {
         setTimeout(resolve, ms);
     });
 }
+
+export function replaceAll(str, find, replace) {
+    return str.split(find).join(replace);
+}

@@ -2,21 +2,20 @@ import React, {Component} from 'react';
 import {Image, StyleSheet, View, Modal, TouchableOpacity, Text, TextInput} from 'react-native';
 import colors from "../../../constants/colors";
 import images from "../../../assets/images";
+import TextInputMask from "react-native-masked-text/lib/text-input-mask";
+import {replaceAll} from "../../../helpers/tools";
 
 export default class SendMoneyModal extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {value:0}
+        this.state = {text:'R$0,00',value:0};
     }
 
-    setValue = (value) => {
-        this.setState({value})
-    };
-
     render () {
-
         let {data,onPressClose,onPressSend} = this.props;
+
+        let {text,value} = this.state;
 
         if(!data){
             return null;
@@ -62,16 +61,26 @@ export default class SendMoneyModal extends Component{
                             Valor para enviar:
                         </Text>
 
-                        <TextInput
-                            keyboardType={'numeric'}
-                            placeholder='R$ 0,00'
-                            value={this.state.value}
+                        <TextInputMask
+                            keyboardType={ 'number-pad' }
+                            multiline={false}
+                            maxLength={13}
+                            numberOfLines={1}
+                            placeholder={'R$0,00'}
                             style={styles.inputValue}
-                            onChangeText={(value) => this.setValue(value)}
+                            type={'money'}
+                            value={text}
+                            onChangeText={ (text) => {
+                                text = replaceAll(text,'R$','');
+                                text = replaceAll(text,'.','');
+                                text = replaceAll(text,',','.');
+                                let value = parseFloat(text);
+                                this.setState({ text,value });
+                            }}
                         />
 
                         <TouchableOpacity
-                            onPress={()=>onPressSend(data,0)}
+                            onPress={()=> onPressSend(data,value)}
                             style={styles.sendButton}>
 
                             <Text style={styles.sendButtonText}>
@@ -159,7 +168,7 @@ const styles = StyleSheet.create({
         marginTop: 10,
         width: '100%',
         fontWeight: 'bold',
-        fontSize: 30,
+        fontSize: 24,
         color: colors.CYAN_500,
         backgroundColor: colors.WHITE_1000
     },
