@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View, FlatList} from 'react-native';
+import {Image, StyleSheet, View, FlatList} from 'react-native';
 import Toolbar, {LIGHT} from "../../components/Toolbar";
 import colors from "../../constants/colors";
 import images from "../../assets/images";
@@ -43,8 +43,6 @@ export default class SendMoney extends Component{
         }catch (e) {
             console.log('erro do load data',e);
         }
-
-
     };
 
     renderItem = (item,index) => {
