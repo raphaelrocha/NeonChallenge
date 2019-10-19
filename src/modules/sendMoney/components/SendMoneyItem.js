@@ -20,7 +20,11 @@ export default class SendMoneyItem extends Component{
         }
 
         return (
-            <TouchableOpacity style={[styles.container,styleLastItem]}>
+            <TouchableOpacity
+                style={[styles.container,styleLastItem]}
+                onPress={()=> {
+                    this.props.onPress(item);
+                }}>
 
                 <View style={styles.avatarContainer}>
 

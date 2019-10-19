@@ -8,6 +8,7 @@ import Loading from "../../components/Loading";
 import SendMoneyItem from "./components/SendMoneyItem";
 import SendMoneyItemLoading from "./components/SendMoneyItemLoading";
 import {sleep} from "../../helpers/tools";
+import SendMoneyModal from "./components/SendMoneyModal";
 
 export default class SendMoney extends Component{
 
@@ -23,7 +24,11 @@ export default class SendMoney extends Component{
             contacts.push(i);
         }
 
-        this.state = {loading:true,contacts};
+        this.state = {
+            loading:true,
+            contacts,
+            showModal:false,
+        };
     }
 
     componentDidMount() {
@@ -58,6 +63,7 @@ export default class SendMoney extends Component{
 
         return (
             <SendMoneyItem
+                onPress={(modalData)=>{this.setState({showModal:true,modalData})}}
                 item={item}
                 lastItem={index === contacts.length-1}
             />
@@ -89,6 +95,11 @@ export default class SendMoney extends Component{
                     keyExtractor={ (item, index) => index.toString() }
                     data={ contacts }
                     renderItem={ ({ item, index }) => this.renderItem(item,index) } />
+
+                <SendMoneyModal
+                    data={this.state.modalData}
+                    visible={this.state.showModal}
+                    onPressClose={()=>this.setState({showModal:false})}/>
 
             </View>);
     }
