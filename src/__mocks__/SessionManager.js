@@ -1,7 +1,7 @@
 import Storage from "../helpers/Storage";
 import GetProfile from "../modules/profile/commands/GetProfile";
 
-export default class LoadData {
+export default class SessionManager {
 
     start = async () => {
         try {
