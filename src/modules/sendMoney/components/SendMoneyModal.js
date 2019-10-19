@@ -7,11 +7,16 @@ export default class SendMoneyModal extends Component{
 
     constructor(props) {
         super(props);
+        this.state = {value:0}
     }
+
+    setValue = (value) => {
+        this.setState({value})
+    };
 
     render () {
 
-        let {data} = this.props;
+        let {data,onPressClose,onPressSend} = this.props;
 
         if(!data){
             return null;
@@ -27,7 +32,7 @@ export default class SendMoneyModal extends Component{
 
                         <TouchableOpacity
                             style={styles.closeButton}
-                            onPress={this.props.onPressClose.bind(this)}>
+                            onPress={onPressClose.bind(this)}>
 
                             <Image
                                 style={styles.closeIcon}
@@ -58,11 +63,15 @@ export default class SendMoneyModal extends Component{
                         </Text>
 
                         <TextInput
-                            value={'R$ 0,00'}
+                            keyboardType={'numeric'}
+                            placeholder='R$ 0,00'
+                            value={this.state.value}
                             style={styles.inputValue}
+                            onChangeText={(value) => this.setValue(value)}
                         />
 
                         <TouchableOpacity
+                            onPress={()=>onPressSend(data,0)}
                             style={styles.sendButton}>
 
                             <Text style={styles.sendButtonText}>

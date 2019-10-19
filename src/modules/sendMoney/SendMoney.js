@@ -50,6 +50,10 @@ export default class SendMoney extends Component{
         }
     };
 
+    sendMoney = (data,value) => {
+        this.setState({showModal:false})
+    };
+
     renderItem = (item,index) => {
 
         let {contacts} = this.state;
@@ -99,7 +103,8 @@ export default class SendMoney extends Component{
                 <SendMoneyModal
                     data={this.state.modalData}
                     visible={this.state.showModal}
-                    onPressClose={()=>this.setState({showModal:false})}/>
+                    onPressClose={()=>this.setState({showModal:false})}
+                    onPressSend={(data,value)=>{this.sendMoney(data,value)}}/>
 
             </View>);
     }
