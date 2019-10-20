@@ -11,19 +11,28 @@ export default class ContactItem extends Component{
 
     render(){
 
-        let {item,lastItem,value} = this.props;
+        let {item,lastItem,value,onPress} = this.props;
 
         let styleLastItem;
+
+        let disabled = false;
 
         if(lastItem){
             styleLastItem = {borderBottomWidth:0}
         }
 
+        if(!onPress){
+            disabled = true;
+        }
+
         return (
             <TouchableOpacity
+                disabled={disabled}
                 style={[styles.container,styleLastItem]}
                 onPress={()=> {
-                    this.props.onPress(item);
+                    if(onPress){
+                        onPress(item);
+                    }
                 }}>
 
                 <View style={styles.avatarContainer}>
@@ -48,7 +57,7 @@ export default class ContactItem extends Component{
                     {value
                         ?
                         <Text style={styles.value}>
-                            R$20,00
+                            {value}
                         </Text>
                         :
                         null

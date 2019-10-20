@@ -131,7 +131,6 @@ export default class SendMoney extends Component{
 
         if(this.state.loading){
             return <ContactShimmerItem
-                value={true}
                 lastItem={index === contacts.length-1}
             />
         }
@@ -223,7 +222,4 @@ const styles = StyleSheet.create({
         marginRight: 10,
         height: '100%',
     },
-    emptyListContainer:{
-        justifyContent:'center',
-    }
 });
