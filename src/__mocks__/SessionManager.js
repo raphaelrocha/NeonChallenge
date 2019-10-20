@@ -3,7 +3,24 @@ import GetProfile from "../modules/profile/commands/GetProfile";
 import GetContacts from "../modules/sendMoney/commands/GetContacts";
 import {sleep} from "../helpers/tools";
 
+const DEFAULT_DELAY = 0;
+
 export default class SessionManager {
+
+    constructor(){
+        if(!SessionManager.instance){
+            /*
+            Limpa o storage sempre que o app é iniciado para forçar o download de tudo novamente.
+             */
+            SessionManager.clear();
+            SessionManager.instance = this;
+        }
+        return SessionManager.instance;
+    }
+
+    static getInstance(){
+        return new SessionManager();
+    }
 
     loadProfile = async () => {
         try{
@@ -11,6 +28,7 @@ export default class SessionManager {
             if(profile){
                 return profile;
             }else{
+                await sleep(DEFAULT_DELAY);
                 let command = new GetProfile();
                 let response = await command.execute();
                 profile = response.results[0];
@@ -28,6 +46,7 @@ export default class SessionManager {
             if(contacts){
                 return contacts;
             }else{
+                await sleep(DEFAULT_DELAY);
                 let command = new GetContacts();
                 let response = await command.execute();
                 contacts = response.results;
@@ -39,7 +58,7 @@ export default class SessionManager {
         }
     };
 
-    clear = async () => {
+    static clear = async () => {
         await Storage.clear();
     }
 }

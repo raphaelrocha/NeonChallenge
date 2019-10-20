@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
         paddingBottom: 16,
         flexDirection: 'row',
         borderBottomWidth:2,
-        borderColor: colors.LIGHT_BLUE_400,
+        borderColor: colors.WHITE_1000,
     },
     avatarContainer:{
         alignSelf: 'center',
@@ -67,7 +67,7 @@ const styles = StyleSheet.create({
         width: 70,
         borderRadius: 35,
         borderWidth:3,
-        borderColor:colors.LIGHT_BLUE_300,
+        borderColor:colors.WHITE_1000,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.ALPHA_GREY_46,
@@ -90,10 +90,10 @@ const styles = StyleSheet.create({
     name:{
         fontSize: 20,
         fontWeight: 'bold',
-        color: colors.LIGHT_BLUE_200,
+        color: colors.WHITE_1000,
     },
     phone:{
         marginTop: 5,
-        color: colors.LIGHT_BLUE_200,
+        color: colors.WHITE_1000,
     }
 });

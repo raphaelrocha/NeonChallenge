@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, View, Modal, TouchableOpacity, Text, TextInput} from 'react-native';
+import {Image, StyleSheet, View, Modal, TouchableOpacity, Text} from 'react-native';
 import colors from "../../../constants/colors";
 import images from "../../../assets/images";
 import TextInputMask from "react-native-masked-text/lib/text-input-mask";
@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     content:{
         padding: 20,
         borderRadius: 20,
-        backgroundColor: colors.BLUE_GREY_400,
+        backgroundColor: colors.BLUE_700,
         width: '80%',
         alignItems: 'center',
     },
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
     closeIcon:{
         height: 30,
         width: 30,
-        tintColor: colors.GREY_300,
+        tintColor: colors.WHITE_1000,
         resizeMode: 'contain',
     },
     avatarContainer:{
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
         width: 70,
         borderRadius: 35,
         borderWidth:3,
-        borderColor:colors.LIGHT_BLUE_300,
+        borderColor:colors.WHITE_1000,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.ALPHA_GREY_46,
@@ -173,12 +173,14 @@ const styles = StyleSheet.create({
         backgroundColor: colors.WHITE_1000
     },
     sendButton:{
-        backgroundColor: colors.CYAN_500,
+        backgroundColor: colors.GREEN_400,
         width: '100%',
         alignItems: 'center',
         marginTop: 15,
         padding: 8,
-        borderRadius: 15,
+        borderRadius: 20,
+        borderWidth: 2,
+        borderColor: colors.ALPHA_GREY_15
 
     },
     sendButtonText:{

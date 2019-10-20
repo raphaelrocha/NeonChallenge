@@ -38,7 +38,6 @@ export default class SendMoney extends Component{
 
     loadContent = async () => {
         try{
-            // await sleep(2000);
             let sessionManager = new SessionManager();
             let contacts = await sessionManager.loadContacts();
             if(contacts){
@@ -118,7 +117,7 @@ const styles = StyleSheet.create({
         flexDirection: 'column',
     },
     background:{
-        tintColor: colors.BLUE_900,
+        tintColor: colors.BLUE_GREY_900,
         height: '100%',
         width: '100%',
         position: 'absolute',

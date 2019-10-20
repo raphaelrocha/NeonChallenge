@@ -3,6 +3,7 @@ import {StyleSheet, Text, TouchableOpacity, View, Image} from "react-native";
 import SessionManager from "../../__mocks__/SessionManager";
 import images from "../../assets/images";
 import colors from "../../constants/colors";
+import Loading from "../../components/Loading";
 
 export default class Profile extends Component{
 
@@ -16,9 +17,7 @@ export default class Profile extends Component{
     }
 
     loadAppData = async () => {
-        let sessionManager = new SessionManager();
-        await sessionManager.clear();
-        sessionManager.loadProfile()
+        SessionManager.getInstance().loadProfile()
             .then(profile=>{
                 this.setState({profile})
             })
@@ -42,7 +41,15 @@ export default class Profile extends Component{
         let {profile} = this.state;
 
         if(!profile){
-            return  null;
+            return (
+                <View style={styles.emptyContainer}>
+                    <Image
+                        style={styles.background}
+                        source={images.bgGrad}
+                    />
+                    <Loading/>
+                </View>
+            );
         }
 
         return (
@@ -99,12 +106,18 @@ export default class Profile extends Component{
 }
 
 const styles = StyleSheet.create({
+    emptyContainer:{
+        height: '100%',
+        flexDirection: 'column',
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
     container:{
         height: '100%',
         flexDirection: 'column',
     },
     background:{
-        tintColor: colors.BLUE_900,
+        tintColor: colors.BLUE_GREY_900,
         height: '100%',
         width: '100%',
         position: 'absolute',
@@ -119,7 +132,7 @@ const styles = StyleSheet.create({
         width: 150,
         borderRadius: 75,
         borderWidth:5,
-        borderColor:colors.LIGHT_BLUE_400,
+        borderColor:colors.WHITE_1000,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.ALPHA_GREY_46,
@@ -157,7 +170,9 @@ const styles = StyleSheet.create({
         paddingBottom: 15,
         paddingLeft: 20,
         paddingRight: 20,
-        backgroundColor: colors.BLUE_300,
+        backgroundColor: colors.GREY_800,
+        borderWidth: 2,
+        borderColor: colors.ALPHA_GREY_15
     },
     buttonText:{
         textAlign: 'center',
