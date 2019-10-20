@@ -22,11 +22,6 @@ export default class Profile extends Component{
             .then(async  profile=>{
                 this.setState({profile});
 
-                await SessionManager.getInstance().saveTransferValue('1',2);
-                await SessionManager.getInstance().saveTransferValue('1',2);
-                let value = await SessionManager.getInstance().getTransfersValue('1');
-                console.log('>>>',value);
-
             })
             .catch(error=>{
                 console.log('erro do load data',error);

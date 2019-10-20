@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, View, FlatList} from 'react-native';
+import {Image, StyleSheet, View, FlatList, Text} from 'react-native';
 import Toolbar, {LIGHT} from "../../components/Toolbar";
 import colors from "../../constants/colors";
 import images from "../../assets/images";
@@ -99,7 +99,8 @@ export default class SendMoney extends Component{
         let to = SendMoneyController.getInstance().getTo();
         let uuid = to.login.uuid;
         let value = SendMoneyController.getInstance().getValueInvoice();
-        await SessionManager.getInstance().saveTransferValue(uuid,value);
+        let name = to.name.first+' '+to.name.last;
+        await SendMoneyController.getInstance().saveTransferValue(uuid,value);
         this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
 
         let onPressConfirmAlert = () => {
@@ -111,7 +112,7 @@ export default class SendMoney extends Component{
             this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
         };
 
-        this.showAlertMessage('Transferência executada com sucesso','OK',undefined,onPressConfirmAlert,onPressCancelAlert)
+        this.showAlertMessage('Transferência para '+name+' foi realizada com sucesso.','OK',undefined,onPressConfirmAlert,onPressCancelAlert)
     };
 
     showAlertMessage = (message,confirmButtonText,cancelButtonText,onPressConfirmAlert,onPressCancelAlert) => {
@@ -144,6 +145,20 @@ export default class SendMoney extends Component{
         );
     };
 
+    listEmptyComponent = () => {
+        return (
+            <View style={styles.emptyContainer}>
+                <Image
+                    style={styles.emptyIcon}
+                    source={images.contactBook}
+                />
+                <Text style={styles.emptyMessage}>
+                    Você ainda não possui contatos para enviar dinheiro.
+                </Text>
+            </View>
+        );
+    };
+
     render(){
 
         let {contacts} = this.state;
@@ -168,6 +183,7 @@ export default class SendMoney extends Component{
                     showsVerticalScrollIndicator={ false }
                     keyExtractor={ (item, index) => index.toString() }
                     data={ contacts }
+                    ListEmptyComponent={this.listEmptyComponent.bind(this)}
                     renderItem={ ({ item, index }) => this.renderItem(item,index) } />
 
                 <SendMoneyModal
@@ -222,4 +238,24 @@ const styles = StyleSheet.create({
         marginRight: 10,
         height: '100%',
     },
+    emptyContainer:{
+        margin: 16,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    emptyMessage:{
+        fontWeight:'bold',
+        fontSize: 20,
+        color: colors.WHITE_1000,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+    },
+    emptyIcon:{
+        marginTop:40,
+        marginBottom:40,
+        height:100,
+        resizeMode: 'contain',
+        tintColor: colors.WHITE_1000,
+    }
+
 });

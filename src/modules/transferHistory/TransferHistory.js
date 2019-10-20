@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     emptyIcon:{
         marginTop:40,
         marginBottom:40,
-        height:40,
+        height:60,
         resizeMode: 'contain',
         tintColor: colors.WHITE_1000,
     }

@@ -3,6 +3,7 @@ import GetProfile from "../__mocks__/commands/GetProfile";
 import GetContacts from "../__mocks__/commands/GetContacts";
 import {sleep} from "../helpers/tools";
 import {AsyncStorage as storage} from "react-native";
+import SendMoneyController from "../modules/sendMoney/controller/SendMoneyController";
 
 const DEFAULT_DELAY = 500;
 
@@ -74,7 +75,7 @@ export default class SessionManager {
             if(contacts){
                 let resultContacts = [];
                 let promises = contacts.map(async (contact)=>{
-                    let value = await this.getTransfersValue(contact.login.uuid);
+                    let value = await SendMoneyController.getInstance().getTransfersValue(contact.login.uuid);
                     if(value){
                         contact.transferValue = value;
                         resultContacts.push(contact);
@@ -90,7 +91,7 @@ export default class SessionManager {
                 await LocalStorage.saveContacts(contacts);
                 let resultContacts = [];
                 let promises = contacts.map(async (contact)=>{
-                    let value = await this.getTransfersValue(contact.login.uuid);
+                    let value = await SendMoneyController.getInstance().getTransfersValue(contact.login.uuid);
                     if(value){
                         contact.transferValue = value;
                         resultContacts.push(contact);
@@ -102,32 +103,6 @@ export default class SessionManager {
         }catch (e) {
             throw 'erro ao carregar contatos.',e;
         }
-    };
-
-    saveTransferValue = async (uuid,value) => {
-        let profile = await LocalStorage.getProfile();
-
-        if(profile){
-            uuid = uuid+profile.login.uuid;
-            let oldValue = await this.getTransfersValue(uuid);
-            if(oldValue){
-                oldValue = parseFloat(oldValue);
-            }
-            value = parseFloat(value);
-            value = oldValue+value;
-            uuid = uuid.toString();
-            value = value.toString();
-            await LocalStorage.saveTransferValue(uuid,value);
-        }
-    };
-
-    getTransfersValue = async (uuid) => {
-        let profile = await LocalStorage.getProfile();
-        if(!profile){
-            return null;
-        }
-        uuid = uuid+profile.login.uuid;
-        return  await LocalStorage.getTransfersValue(uuid);
     };
 
     static clear = async () => {
