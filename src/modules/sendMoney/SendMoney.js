@@ -104,6 +104,7 @@ export default class SendMoney extends Component{
 
         let onPressConfirmAlert = () => {
             this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
+            this.props.navigation.goBack();
         };
 
         let onPressCancelAlert = () => {
