@@ -6,6 +6,7 @@ import Toolbar, {LIGHT} from "../../components/Toolbar";
 import SessionManager from "../../application/SessionManager";
 import ContactShimmerItem from "../../components/ContactShimmerItem";
 import ContactItem from "../../components/ContactItem";
+import {getRandomFloat, getRandomInt} from "../../helpers/tools";
 
 export default class TransferHistory extends Component{
 
@@ -59,7 +60,7 @@ export default class TransferHistory extends Component{
             <ContactItem
                 // onPress={(modalData)=>{this.setState({showModal:true,modalData,showAlertModal:false})}}
                 item={item}
-                value={132.0}
+                value={getRandomFloat(0.01,999.99)}
                 lastItem={index === contacts.length-1}
             />
         );
