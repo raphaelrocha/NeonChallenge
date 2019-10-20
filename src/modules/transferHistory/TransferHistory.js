@@ -3,7 +3,7 @@ import {FlatList, Image, StyleSheet, View, Text} from 'react-native';
 import colors from "../../constants/colors";
 import images from "../../assets/images";
 import Toolbar, {LIGHT} from "../../components/Toolbar";
-import SessionManager from "../../application/SessionManager";
+import ApiMock from "../../__mocks__/ApiMock";
 import ContactShimmerItem from "../../components/ContactShimmerItem";
 import ContactItem from "../../components/ContactItem";
 
@@ -21,9 +21,12 @@ export default class TransferHistory extends Component{
             contacts.push(i);
         }
 
+        let profile = props.navigation.state.params.profile;
+
         this.state = {
             loading:true,
             contacts,
+            profile
         };
     }
 
@@ -33,9 +36,9 @@ export default class TransferHistory extends Component{
 
     loadContent = async () => {
         try{
-            let contacts = await SessionManager.getInstance().loadContactsWithTransfer();
+            let myUuid = this.state.profile.login.uuid;
+            let contacts = await ApiMock.loadContactsWithTransfer(myUuid);
             if(contacts){
-                console.log(contacts);
                 this.setState({contacts,loading:false});
             }
         }catch (e) {
@@ -73,7 +76,7 @@ export default class TransferHistory extends Component{
                     source={images.exchange}
                 />
                 <Text style={styles.emptyMessage}>
-                    Ainda não há movimentações para mostar.
+                    Ainda não há movimentações para mostrar.
                 </Text>
             </View>
         );

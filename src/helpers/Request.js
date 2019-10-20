@@ -1,6 +1,7 @@
 import _ from 'lodash';
 import HTTP_CODES from 'http-status-codes';
 import fetch from 'react-native-cancelable-fetch';
+import environments from "../__environments__/environments";
 
 export default class Request {
   constructor(endpoint, info) {
@@ -15,7 +16,9 @@ export default class Request {
     const FETCH_TIMEOUT = 30000;
     let didTimeOut = false;
 
-    console.log('request',url);
+    if(environments.showHttpLogs){
+        console.log('request',url);
+    }
 
     return new Promise((resolve, reject) => {
 
@@ -43,7 +46,9 @@ export default class Request {
           })
           .then(response => response.json())
           .then(data =>{
-              console.log('Response success',url,data);
+              if(environments.showHttpLogs){
+                  console.log('Response success',url,data);
+              }
               resolve(data);
           })
           .catch(err => {
@@ -51,7 +56,9 @@ export default class Request {
             if(error === 'TypeError: Network request failed'){
               err = {message:'Verifique a conexão com a internet',code:'NoConnection'};
             }
-            console.warn('Response error',url,err);
+            if(environments.showHttpLogs){
+                console.warn('Response error',url,err);
+            }
             reject(err);
           });
     });

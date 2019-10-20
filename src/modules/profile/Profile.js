@@ -1,10 +1,10 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, Image} from "react-native";
-import SessionManager from "../../application/SessionManager";
+import ApiMock from "../../__mocks__/ApiMock";
 import images from "../../assets/images";
 import colors from "../../constants/colors";
 import Loading from "../../components/Loading";
-import LocalStorage from "../../helpers/LocalStorage";
+import LocalStorage from "../../__mocks__/db/LocalStorage";
 
 export default class Profile extends Component{
 
@@ -14,11 +14,7 @@ export default class Profile extends Component{
     }
 
     componentDidMount() {
-        this.loadAppData();
-    }
-
-    loadAppData = async () => {
-        SessionManager.getInstance().loadProfile()
+        ApiMock.loadProfile()
             .then(async  profile=>{
                 this.setState({profile});
 
@@ -26,18 +22,16 @@ export default class Profile extends Component{
             .catch(error=>{
                 console.log('erro do load data',error);
             });
-
-
-    };
+    }
 
     goToSendMoney = () => {
         const {navigate} = this.props.navigation;
-        navigate('SendMoney', {profile:this.state.profile})
+        navigate('SendMoney',{profile:this.state.profile});
     };
 
     goToTransferHistory = () => {
         const {navigate} = this.props.navigation;
-        navigate('TransferHistory', {name: 'Jane'})
+        navigate('TransferHistory',{profile:this.state.profile});
     };
 
     render(){

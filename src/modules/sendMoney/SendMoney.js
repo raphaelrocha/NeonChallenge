@@ -3,15 +3,13 @@ import {Image, StyleSheet, View, FlatList, Text} from 'react-native';
 import Toolbar, {LIGHT} from "../../components/Toolbar";
 import colors from "../../constants/colors";
 import images from "../../assets/images";
-import SessionManager from "../../application/SessionManager";
+import ApiMock from "../../__mocks__/ApiMock";
 import ContactItem from "../../components/ContactItem";
 import ContactShimmerItem from "../../components/ContactShimmerItem";
-import {sleep} from "../../helpers/tools";
 import SendMoneyModal from "./components/SendMoneyModal";
 import SendMoneyController from "./controller/SendMoneyController";
 import AlertModal from "../../components/AlertMordal";
 import LoadingModal from "../../components/LoadingModal";
-import LocalStorage from "../../helpers/LocalStorage";
 
 export default class SendMoney extends Component{
 
@@ -29,12 +27,15 @@ export default class SendMoney extends Component{
             contacts.push(i);
         }
 
+        let profile = props.navigation.state.params.profile;
+
         this.state = {
             loading:true,
             contacts,
             showModal:false,
             showAlertModal:false,
             showLoadingModal:false,
+            profile
         };
     }
 
@@ -84,10 +85,8 @@ export default class SendMoney extends Component{
 
     loadContent = async () => {
         try{
-            let sessionManager = new SessionManager();
-            let contacts = await sessionManager.loadContacts();
+            let contacts = await ApiMock.loadContacts();
             if(contacts){
-                console.log(contacts);
                 this.setState({contacts,loading:false});
             }
         }catch (e) {
@@ -97,15 +96,14 @@ export default class SendMoney extends Component{
     };
 
     sendMoney = async () => {
-
         try {
             let to = SendMoneyController.getInstance().getTo();
-            let uuid = to.login.uuid;
+            let toUuid = to.login.uuid;
+            let myUuid = this.state.profile.login.uuid;
             let name = to.name.first+' '+to.name.last;
             let value = SendMoneyController.getInstance().getValueInvoice();
-            await SendMoneyController.getInstance().saveTransferValue(uuid,value);
 
-            let response = await SessionManager.getInstance().sendMoney(uuid,value);
+            let response = await ApiMock.sendMoney(myUuid,toUuid,value);
 
             this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
 
