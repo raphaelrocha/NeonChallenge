@@ -115,6 +115,7 @@ const styles = StyleSheet.create({
     container:{
         height: '100%',
         flexDirection: 'column',
+        justifyContent: 'center'
     },
     background:{
         tintColor: colors.BLUE_GREY_900,
@@ -126,7 +127,6 @@ const styles = StyleSheet.create({
         zIndex:0,
     },
     avatarContainer:{
-        marginTop: 150,
         alignSelf: 'center',
         height: 150,
         width: 150,

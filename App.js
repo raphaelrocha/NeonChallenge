@@ -24,6 +24,6 @@ const AppContent = createAppContainer(MainNavigator);
 
 export default App = () =>
     <View style={{flex: 1}}>
-      <StatusBar barStyle="light-content" backgroundColor={colors.BLUE_900}/>
+      <StatusBar barStyle="light-content" backgroundColor={colors.BLUE_GREY_900}/>
       <AppContent />
     </View>;
