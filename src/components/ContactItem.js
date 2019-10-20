@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
 import colors from "../constants/colors";
+import TextMask from "react-native-masked-text/lib/text-mask";
 
 export default class ContactItem extends Component{
 
@@ -56,9 +57,10 @@ export default class ContactItem extends Component{
 
                     {value
                         ?
-                        <Text style={styles.value}>
-                            {value}
-                        </Text>
+                        <TextMask
+                            style={styles.value}
+                            value={value}
+                            type={'money'}/>
                         :
                         null
                     }
