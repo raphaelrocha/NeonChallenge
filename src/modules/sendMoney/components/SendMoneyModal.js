@@ -10,13 +10,16 @@ export default class SendMoneyModal extends Component{
 
     constructor(props) {
         super(props);
-        this.state = {text:'R$0,00',value:0};
+        this.state = {
+            text:'R$0,00',
+            value:0,
+            disabled:true};
     }
 
     render () {
         let {data,onPressClose,onPressSend} = this.props;
 
-        let {text,value} = this.state;
+        let {text,value,disabled} = this.state;
 
         if(!data){
             return null;
@@ -77,17 +80,22 @@ export default class SendMoneyModal extends Component{
                                 text = replaceAll(text,'.','');
                                 text = replaceAll(text,',','.');
                                 let value = parseFloat(text);
-                                this.setState({ text,value });
+                                let disabled = false;
+                                if(value===0){
+                                    disabled = true;
+                                }
+                                this.setState({ text,value,disabled });
                             }}
                         />
 
                         <TouchableOpacity
+                            disabled={disabled}
                             onPress={()=> {
                                 SendMoneyController.getInstance().setTo(data);
                                 SendMoneyController.getInstance().setValueInvoice(value);
                                 onPressSend()
                             }}
-                            style={styles.sendButton}>
+                            style={[styles.sendButton,disabled?styles.disabledSendButton:undefined]}>
 
                             <Text style={styles.sendButtonText}>
                                 ENVIAR
@@ -193,5 +201,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: colors.WHITE_1000,
         fontSize: 20,
+    },
+    disabledSendButton:{
+        backgroundColor: colors.GREY_400,
     }
 });
