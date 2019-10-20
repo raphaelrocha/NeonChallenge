@@ -102,4 +102,8 @@ export default class ApiMock {
         }
     };
 
+    static async delete (){
+        await LocalStorage.clear();
+    }
+
 }

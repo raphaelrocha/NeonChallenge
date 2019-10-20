@@ -14,6 +14,10 @@ export default class Profile extends Component{
     }
 
     componentDidMount() {
+        this.getProfile();
+    }
+
+    getProfile () {
         ApiMock.loadProfile()
             .then(async  profile=>{
                 this.setState({profile});
@@ -32,6 +36,12 @@ export default class Profile extends Component{
     goToTransferHistory = () => {
         const {navigate} = this.props.navigation;
         navigate('TransferHistory',{profile:this.state.profile});
+    };
+
+    loadNewProfile = async () => {
+        this.setState({profile:undefined});
+        await ApiMock.delete();
+        this.getProfile();
     };
 
     render(){
@@ -58,14 +68,16 @@ export default class Profile extends Component{
                     source={images.bgGrad}
                 />
 
-                <View style={styles.avatarContainer}>
+                <TouchableOpacity
+                    onPress={this.loadNewProfile.bind(this)}
+                    style={styles.avatarContainer}>
 
                     <Image
                         style={styles.avatar}
                         source={{uri:profile.picture.large}}
                     />
 
-                </View>
+                </TouchableOpacity>
 
                 <Text style={styles.name}>
                     {profile.name.first} {profile.name.last}
