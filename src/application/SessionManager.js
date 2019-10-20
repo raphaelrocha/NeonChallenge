@@ -2,10 +2,14 @@ import LocalStorage from "../helpers/LocalStorage";
 import GetProfile from "../__mocks__/commands/GetProfile";
 import GetContacts from "../__mocks__/commands/GetContacts";
 import {sleep} from "../helpers/tools";
-import {AsyncStorage as storage} from "react-native";
 import SendMoneyController from "../modules/sendMoney/controller/SendMoneyController";
+import PostTransfer from "../__mocks__/commands/PostTransfer";
 
-const DEFAULT_DELAY = 500;
+/*
+As apis de teste repondem bem rapido por seresm staticas, este delay serve para emular a lentidao normal em transaçoes
+reais.
+ */
+const DEFAULT_DELAY = 1000;
 
 export default class SessionManager {
 
@@ -62,7 +66,7 @@ export default class SessionManager {
                 return contacts;
             }
         }catch (e) {
-            throw 'erro ao carregar contatos.';
+            throw e;
         }
     };
 
@@ -101,7 +105,17 @@ export default class SessionManager {
                 return resultContacts;
             }
         }catch (e) {
-            throw 'erro ao carregar contatos.',e;
+            throw e
+        }
+    };
+
+    sendMoney = async (uuid,value) => {
+        try{
+            await sleep(DEFAULT_DELAY);
+            let command = new PostTransfer(uuid,value);
+            return await command.execute();
+        }catch (e) {
+            throw e;
         }
     };
 

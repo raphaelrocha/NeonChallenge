@@ -88,31 +88,52 @@ export default class SendMoney extends Component{
             let contacts = await sessionManager.loadContacts();
             if(contacts){
                 console.log(contacts);
-                this.setState({contacts,loading:false})
+                this.setState({contacts,loading:false});
             }
         }catch (e) {
-            console.log('erro do load data',e);
+            console.log('SendMoney','Erro ao carregar contatos',e);
+            this.setState({contacts:[],loading:false});
         }
     };
 
     sendMoney = async () => {
-        let to = SendMoneyController.getInstance().getTo();
-        let uuid = to.login.uuid;
-        let value = SendMoneyController.getInstance().getValueInvoice();
-        let name = to.name.first+' '+to.name.last;
-        await SendMoneyController.getInstance().saveTransferValue(uuid,value);
-        this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
 
-        let onPressConfirmAlert = () => {
+        try {
+            let to = SendMoneyController.getInstance().getTo();
+            let uuid = to.login.uuid;
+            let name = to.name.first+' '+to.name.last;
+            let value = SendMoneyController.getInstance().getValueInvoice();
+            await SendMoneyController.getInstance().saveTransferValue(uuid,value);
+
+            let response = await SessionManager.getInstance().sendMoney(uuid,value);
+
             this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
-            this.props.navigation.goBack();
-        };
 
-        let onPressCancelAlert = () => {
-            this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
-        };
+            let message = response.id+' - A transferência para '+name+' foi realizada com sucesso.';
 
-        this.showAlertMessage('Transferência para '+name+' foi realizada com sucesso.','OK',undefined,onPressConfirmAlert,onPressCancelAlert)
+            let onPressConfirmAlert = () => {
+                this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
+                this.props.navigation.goBack();
+            };
+
+            let onPressCancelAlert = () => {
+                this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
+            };
+
+            this.showAlertMessage(message,'OK',undefined,onPressConfirmAlert,onPressCancelAlert)
+        }catch (e) {
+            let onPressConfirmAlert = () => {
+                this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
+            };
+
+            let onPressCancelAlert = () => {
+                this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
+            };
+            let message = 'Erro ao fazer a transfêrencia.';
+            console.warn(message,e);
+            this.showAlertMessage(message,'OK',undefined,onPressConfirmAlert,onPressCancelAlert)
+        }
+
     };
 
     showAlertMessage = (message,confirmButtonText,cancelButtonText,onPressConfirmAlert,onPressCancelAlert) => {

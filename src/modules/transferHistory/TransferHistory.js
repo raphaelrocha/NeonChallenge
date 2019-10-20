@@ -36,10 +36,11 @@ export default class TransferHistory extends Component{
             let contacts = await SessionManager.getInstance().loadContactsWithTransfer();
             if(contacts){
                 console.log(contacts);
-                this.setState({contacts,loading:false})
+                this.setState({contacts,loading:false});
             }
         }catch (e) {
-            console.log('erro do load data',e);
+            console.log('TransferHistory','Erro ao carregar contatos',e);
+            this.setState({contacts:[],loading:false});
         }
     };
 
