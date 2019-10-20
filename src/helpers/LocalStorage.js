@@ -5,7 +5,7 @@ const keys = {
   CONTACTS: 'contacts.db',
 };
 
-export default class Storage {
+export default class LocalStorage {
 
   static async clear(){
     await storage.clear();
@@ -25,6 +25,14 @@ export default class Storage {
 
   static async getContacts(){
     return await storage.getItem(keys.CONTACTS).then(contacts => JSON.parse(contacts));
+  }
+
+  static async saveTransferValue(uuid,value){
+    await storage.setItem(uuid, value);
+  }
+
+  static async getTransfersValue(uuid){
+    return await storage.getItem(uuid).then(value => {return value});
   }
 
 }

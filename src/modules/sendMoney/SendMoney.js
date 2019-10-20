@@ -4,7 +4,6 @@ import Toolbar, {LIGHT} from "../../components/Toolbar";
 import colors from "../../constants/colors";
 import images from "../../assets/images";
 import SessionManager from "../../application/SessionManager";
-import Loading from "../../components/Loading";
 import ContactItem from "../../components/ContactItem";
 import ContactShimmerItem from "../../components/ContactShimmerItem";
 import {sleep} from "../../helpers/tools";
@@ -12,6 +11,7 @@ import SendMoneyModal from "./components/SendMoneyModal";
 import SendMoneyController from "./controller/SendMoneyController";
 import AlertModal from "../../components/AlertMordal";
 import LoadingModal from "../../components/LoadingModal";
+import LocalStorage from "../../helpers/LocalStorage";
 
 export default class SendMoney extends Component{
 
@@ -96,11 +96,11 @@ export default class SendMoney extends Component{
     };
 
     sendMoney = async () => {
-        await sleep(5000);
-        this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
         let to = SendMoneyController.getInstance().getTo();
+        let uuid = to.login.uuid;
         let value = SendMoneyController.getInstance().getValueInvoice();
-        console.warn('para mandar',to,value);
+        await SessionManager.getInstance().saveTransferValue(uuid,value);
+        this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
 
         let onPressConfirmAlert = () => {
             this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});

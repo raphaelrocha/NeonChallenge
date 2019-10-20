@@ -1,12 +1,11 @@
 import React, {Component} from 'react';
-import {FlatList, Image, StyleSheet, View} from 'react-native';
+import {FlatList, Image, StyleSheet, View, Text} from 'react-native';
 import colors from "../../constants/colors";
 import images from "../../assets/images";
 import Toolbar, {LIGHT} from "../../components/Toolbar";
 import SessionManager from "../../application/SessionManager";
 import ContactShimmerItem from "../../components/ContactShimmerItem";
 import ContactItem from "../../components/ContactItem";
-import {getRandomFloat, getRandomInt} from "../../helpers/tools";
 
 export default class TransferHistory extends Component{
 
@@ -34,8 +33,7 @@ export default class TransferHistory extends Component{
 
     loadContent = async () => {
         try{
-            let sessionManager = new SessionManager();
-            let contacts = await sessionManager.loadContacts();
+            let contacts = await SessionManager.getInstance().loadContactsWithTransfer();
             if(contacts){
                 console.log(contacts);
                 this.setState({contacts,loading:false})
@@ -56,13 +54,27 @@ export default class TransferHistory extends Component{
             />
         }
 
+        // item.transferValue = getRandomFloat(0.01,99.99);
+
         return (
             <ContactItem
-                // onPress={(modalData)=>{this.setState({showModal:true,modalData,showAlertModal:false})}}
                 item={item}
-                value={getRandomFloat(0.01,999.99)}
                 lastItem={index === contacts.length-1}
             />
+        );
+    };
+
+    listEmptyComponent = () => {
+        return (
+            <View style={styles.emptyContainer}>
+                <Image
+                    style={styles.emptyIcon}
+                    source={images.exchange}
+                />
+                <Text style={styles.emptyMessage}>
+                    Ainda não há movimentações para mostar.
+                </Text>
+            </View>
         );
     };
 
@@ -90,6 +102,7 @@ export default class TransferHistory extends Component{
                     showsVerticalScrollIndicator={ false }
                     keyExtractor={ (item, index) => index.toString() }
                     data={ contacts }
+                    ListEmptyComponent={this.listEmptyComponent.bind(this)}
                     renderItem={ ({ item, index }) => this.renderItem(item,index) } />
 
             </View>
@@ -117,4 +130,23 @@ const styles = StyleSheet.create({
         marginRight: 10,
         height: '100%',
     },
+    emptyContainer:{
+        margin: 16,
+        alignItems: 'center',
+        justifyContent: 'center',
+    },
+    emptyMessage:{
+        fontWeight:'bold',
+        fontSize: 20,
+        color: colors.WHITE_1000,
+        textAlign: 'center',
+        textAlignVertical: 'center',
+    },
+    emptyIcon:{
+        marginTop:40,
+        marginBottom:40,
+        height:40,
+        resizeMode: 'contain',
+        tintColor: colors.WHITE_1000,
+    }
 });

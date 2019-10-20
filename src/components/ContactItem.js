@@ -12,7 +12,7 @@ export default class ContactItem extends Component{
 
     render(){
 
-        let {item,lastItem,value,onPress} = this.props;
+        let {item,lastItem,onPress} = this.props;
 
         let styleLastItem;
 
@@ -55,11 +55,11 @@ export default class ContactItem extends Component{
                         {this.props.item.cell}
                     </Text>
 
-                    {value
+                    {item.transferValue
                         ?
                         <TextMask
                             style={styles.value}
-                            value={value}
+                            value={item.transferValue}
                             type={'money'}/>
                         :
                         null

@@ -4,6 +4,7 @@ import SessionManager from "../../application/SessionManager";
 import images from "../../assets/images";
 import colors from "../../constants/colors";
 import Loading from "../../components/Loading";
+import LocalStorage from "../../helpers/LocalStorage";
 
 export default class Profile extends Component{
 
@@ -18,17 +19,25 @@ export default class Profile extends Component{
 
     loadAppData = async () => {
         SessionManager.getInstance().loadProfile()
-            .then(profile=>{
-                this.setState({profile})
+            .then(async  profile=>{
+                this.setState({profile});
+
+                await SessionManager.getInstance().saveTransferValue('1',2);
+                await SessionManager.getInstance().saveTransferValue('1',2);
+                let value = await SessionManager.getInstance().getTransfersValue('1');
+                console.log('>>>',value);
+
             })
             .catch(error=>{
                 console.log('erro do load data',error);
-            })
+            });
+
+
     };
 
     goToSendMoney = () => {
         const {navigate} = this.props.navigation;
-        navigate('SendMoney', {name: 'Jane'})
+        navigate('SendMoney', {profile:this.state.profile})
     };
 
     goToTransferHistory = () => {

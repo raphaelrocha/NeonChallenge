@@ -1,4 +1,4 @@
-import Request from '../../../helpers/Request'
+import Request from '../../helpers/Request'
 
 export default class GetContacts extends Request {
     constructor() {

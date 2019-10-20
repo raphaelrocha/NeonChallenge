@@ -3,4 +3,5 @@ export default {
     gradient: require('./images/grad.png'),
     bgGrad: require('./images/bg_grad.png'),
     close: require('./images/close.png'),
+    exchange: require('./images/exchange.png'),
 }
