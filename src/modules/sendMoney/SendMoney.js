@@ -3,7 +3,7 @@ import {Image, StyleSheet, View, FlatList} from 'react-native';
 import Toolbar, {LIGHT} from "../../components/Toolbar";
 import colors from "../../constants/colors";
 import images from "../../assets/images";
-import SessionManager from "../../__mocks__/SessionManager";
+import SessionManager from "../../application/SessionManager";
 import Loading from "../../components/Loading";
 import SendMoneyItem from "./components/SendMoneyItem";
 import SendMoneyItemLoading from "./components/SendMoneyItemLoading";

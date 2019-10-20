@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
 import {StyleSheet, Text, TouchableOpacity, View, Image} from "react-native";
-import SessionManager from "../../__mocks__/SessionManager";
+import SessionManager from "../../application/SessionManager";
 import images from "../../assets/images";
 import colors from "../../constants/colors";
 import Loading from "../../components/Loading";
