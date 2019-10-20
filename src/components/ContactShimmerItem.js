@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {StyleSheet, View} from 'react-native';
-import colors from "../../../constants/colors";
+import colors from "../constants/colors";
 
-export default class SendMoneyItemLoading extends Component{
+export default class ContactShimmerItem extends Component{
 
     constructor(props) {
         super(props);
@@ -10,7 +10,7 @@ export default class SendMoneyItemLoading extends Component{
 
     render(){
 
-        let {lastItem} = this.props;
+        let {lastItem,value} = this.props;
 
         let styleLastItem;
 
@@ -32,6 +32,13 @@ export default class SendMoneyItemLoading extends Component{
                     <View style={styles.name}/>
 
                     <View style={styles.phone}/>
+
+                    {value
+                        ?
+                        <View style={styles.value}/>
+                        :
+                        null
+                    }
 
                 </View>
 
@@ -66,21 +73,29 @@ const styles = StyleSheet.create({
         backgroundColor: colors.ALPHA_GREY_46
     },
     content:{
+        justifyContent: 'center',
         flex: 1,
-        margin: 5,
+        marginLeft: 10,
+        marginRight: 5,
         width: '100%',
     },
     name:{
         borderRadius: 5,
-        marginTop: 5,
         width: '70%',
         height: 20,
         backgroundColor: colors.ALPHA_GREY_46
     },
     phone:{
         borderRadius: 5,
-        marginTop: 10,
+        marginTop: 5,
         width: '45%',
+        height: 20,
+        backgroundColor: colors.ALPHA_GREY_46
+    },
+    value:{
+        borderRadius: 5,
+        marginTop: 5,
+        width: '30%',
         height: 20,
         backgroundColor: colors.ALPHA_GREY_46
     }

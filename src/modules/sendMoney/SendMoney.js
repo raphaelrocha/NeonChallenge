@@ -6,7 +6,7 @@ import images from "../../assets/images";
 import SessionManager from "../../application/SessionManager";
 import Loading from "../../components/Loading";
 import ContactItem from "../../components/ContactItem";
-import SendMoneyItemLoading from "./components/SendMoneyItemLoading";
+import ContactShimmerItem from "../../components/ContactShimmerItem";
 import {sleep} from "../../helpers/tools";
 import SendMoneyModal from "./components/SendMoneyModal";
 import SendMoneyController from "./controller/SendMoneyController";
@@ -130,7 +130,8 @@ export default class SendMoney extends Component{
         let {contacts} = this.state;
 
         if(this.state.loading){
-            return <SendMoneyItemLoading
+            return <ContactShimmerItem
+                value={true}
                 lastItem={index === contacts.length-1}
             />
         }

@@ -3,7 +3,7 @@ import GetProfile from "../modules/profile/commands/GetProfile";
 import GetContacts from "../modules/sendMoney/commands/GetContacts";
 import {sleep} from "../helpers/tools";
 
-const DEFAULT_DELAY = 0;
+const DEFAULT_DELAY = 500;
 
 export default class SessionManager {
 
