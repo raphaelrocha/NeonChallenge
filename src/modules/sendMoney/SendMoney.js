@@ -5,7 +5,7 @@ import colors from "../../constants/colors";
 import images from "../../assets/images";
 import SessionManager from "../../application/SessionManager";
 import Loading from "../../components/Loading";
-import SendMoneyItem from "./components/SendMoneyItem";
+import ContactItem from "../../components/ContactItem";
 import SendMoneyItemLoading from "./components/SendMoneyItemLoading";
 import {sleep} from "../../helpers/tools";
 import SendMoneyModal from "./components/SendMoneyModal";
@@ -136,7 +136,7 @@ export default class SendMoney extends Component{
         }
 
         return (
-            <SendMoneyItem
+            <ContactItem
                 onPress={(modalData)=>{this.setState({showModal:true,modalData,showAlertModal:false})}}
                 item={item}
                 lastItem={index === contacts.length-1}

@@ -1,8 +1,8 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
-import colors from "../../../constants/colors";
+import colors from "../constants/colors";
 
-export default class SendMoneyItem extends Component{
+export default class ContactItem extends Component{
 
     constructor(props) {
         super(props);
@@ -11,7 +11,7 @@ export default class SendMoneyItem extends Component{
 
     render(){
 
-        let {item,lastItem} = this.props;
+        let {item,lastItem,value} = this.props;
 
         let styleLastItem;
 
@@ -44,6 +44,15 @@ export default class SendMoneyItem extends Component{
                     <Text style={styles.phone}>
                         {this.props.item.cell}
                     </Text>
+
+                    {value
+                        ?
+                        <Text style={styles.value}>
+                            R$20,00
+                        </Text>
+                        :
+                        null
+                    }
 
                 </View>
 
@@ -81,9 +90,7 @@ const styles = StyleSheet.create({
     content:{
         justifyContent: 'center',
         flex: 1,
-        marginTop: 5,
         marginLeft: 10,
-        marginBottom: 5,
         marginRight: 5,
         width: '100%',
     },
@@ -94,6 +101,10 @@ const styles = StyleSheet.create({
     },
     phone:{
         marginTop: 5,
+        color: colors.WHITE_1000,
+    },
+    value:{
+        marginTop: 2,
         color: colors.WHITE_1000,
     }
 });
