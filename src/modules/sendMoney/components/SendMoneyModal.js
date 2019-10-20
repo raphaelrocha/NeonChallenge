@@ -4,6 +4,7 @@ import colors from "../../../constants/colors";
 import images from "../../../assets/images";
 import TextInputMask from "react-native-masked-text/lib/text-input-mask";
 import {replaceAll} from "../../../helpers/tools";
+import SendMoneyController from "../controller/SendMoneyController";
 
 export default class SendMoneyModal extends Component{
 
@@ -25,6 +26,7 @@ export default class SendMoneyModal extends Component{
             <Modal
                 transparent={true}
                 visible={this.props.visible}>
+
                 <View style={styles.container}>
 
                     <View style={styles.content}>
@@ -80,7 +82,11 @@ export default class SendMoneyModal extends Component{
                         />
 
                         <TouchableOpacity
-                            onPress={()=> onPressSend(data,value)}
+                            onPress={()=> {
+                                SendMoneyController.getInstance().setTo(data);
+                                SendMoneyController.getInstance().setValueInvoice(value);
+                                onPressSend()
+                            }}
                             style={styles.sendButton}>
 
                             <Text style={styles.sendButtonText}>
@@ -92,6 +98,7 @@ export default class SendMoneyModal extends Component{
                     </View>
 
                 </View>
+
             </Modal>
         );
     }
@@ -181,7 +188,6 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         borderWidth: 2,
         borderColor: colors.ALPHA_GREY_15
-
     },
     sendButtonText:{
         fontWeight: 'bold',

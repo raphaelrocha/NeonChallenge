@@ -9,11 +9,16 @@ import SendMoneyItem from "./components/SendMoneyItem";
 import SendMoneyItemLoading from "./components/SendMoneyItemLoading";
 import {sleep} from "../../helpers/tools";
 import SendMoneyModal from "./components/SendMoneyModal";
+import SendMoneyController from "./controller/SendMoneyController";
+import AlertModal from "../../components/AlertMordal";
+import LoadingModal from "../../components/LoadingModal";
 
 export default class SendMoney extends Component{
 
     constructor(props) {
         super(props);
+
+        SendMoneyController.clear();
 
         /*
         Itens temporários para mostrar o elementos na lista enquanto carrega a lista.
@@ -28,13 +33,54 @@ export default class SendMoney extends Component{
             loading:true,
             contacts,
             showModal:false,
+            showAlertModal:false,
+            showLoadingModal:false,
         };
     }
 
     componentDidMount() {
         this.loadContent();
-
     }
+
+    askConfirmation = () => {
+        let to = SendMoneyController.getInstance().getTo();
+        let name = to.name.first+' '+to.name.last;
+
+        let onPressConfirmAlert = () => {
+            this.showAlertModal(false);
+            this.showLoadingModal(true);
+            this.sendMoney();
+        };
+
+        let onPressCancelAlert = () => {
+            this.showAlertModal(false);
+        };
+
+        this.showAlertModal(
+            true,
+            'Confirma o envio do dinheiro para '+name+'?',
+            'Sim',
+            'Não',
+            onPressConfirmAlert,
+            onPressCancelAlert
+        );
+    };
+
+    showAlertModal = (showAlertModal, message,confirmButtonText,cancelButtonText,onPressConfirmAlert,onPressCancelAlert) => {
+        this.setState({
+            showAlertModal,
+            message,
+            showModal:false,
+            confirmButtonText,
+            cancelButtonText,
+            showLoadingModal:false,
+            onPressConfirmAlert,
+            onPressCancelAlert});
+    };
+
+    showLoadingModal = (showLoadingModal) => {
+        this.setState({showLoadingModal,showModal:false,showAlertModal:false});
+    };
 
     loadContent = async () => {
         try{
@@ -49,9 +95,33 @@ export default class SendMoney extends Component{
         }
     };
 
-    sendMoney = (data,value) => {
-        this.setState({showModal:false});
-        console.warn('para mandar',data,value);
+    sendMoney = async () => {
+        await sleep(5000);
+        this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
+        let to = SendMoneyController.getInstance().getTo();
+        let value = SendMoneyController.getInstance().getValueInvoice();
+        console.warn('para mandar',to,value);
+
+        let onPressConfirmAlert = () => {
+            this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
+        };
+
+        let onPressCancelAlert = () => {
+            this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
+        };
+
+        this.showAlertMessage('Transferência executada com sucesso','OK',undefined,onPressConfirmAlert,onPressCancelAlert)
+    };
+
+    showAlertMessage = (message,confirmButtonText,cancelButtonText,onPressConfirmAlert,onPressCancelAlert) => {
+        this.showAlertModal(
+            true,
+            message,
+            confirmButtonText,
+            cancelButtonText,
+            onPressConfirmAlert,
+            onPressCancelAlert
+        );
     };
 
     renderItem = (item,index) => {
@@ -64,10 +134,9 @@ export default class SendMoney extends Component{
             />
         }
 
-
         return (
             <SendMoneyItem
-                onPress={(modalData)=>{this.setState({showModal:true,modalData})}}
+                onPress={(modalData)=>{this.setState({showModal:true,modalData,showAlertModal:false})}}
                 item={item}
                 lastItem={index === contacts.length-1}
             />
@@ -104,7 +173,28 @@ export default class SendMoney extends Component{
                     data={this.state.modalData}
                     visible={this.state.showModal}
                     onPressClose={()=>this.setState({showModal:false})}
-                    onPressSend={(data,value)=>{this.sendMoney(data,value)}}/>
+                    onPressSend={this.askConfirmation.bind(this)}/>
+
+                <AlertModal
+                    message={this.state.message}
+                    visible={this.state.showAlertModal}
+                    confirmButtonText={this.state.confirmButtonText}
+                    cancelButtonText={this.state.cancelButtonText}
+                    onPressConfirm={()=>{
+                        if(this.state.onPressConfirmAlert){
+                            this.state.onPressConfirmAlert();
+                        }
+                    }}
+                    onPressCancel={()=>{
+                        if(this.state.onPressCancelAlert){
+                            this.state.onPressCancelAlert();
+                        }
+                    }}
+                />
+
+                <LoadingModal
+                    visible={this.state.showLoadingModal}
+                />
 
             </View>);
     }
