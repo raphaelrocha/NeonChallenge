@@ -6,7 +6,7 @@ import Toolbar, {LIGHT} from "../../components/Toolbar";
 import ApiMock from "../../__mocks__/ApiMock";
 import ContactShimmerItem from "../../components/ContactShimmerItem";
 import ContactItem from "../../components/ContactItem";
-import {sortByTransferAmount} from "../../helpers/tools";
+import TransferChart from "./components/TransferChart";
 
 export default class TransferHistory extends Component{
 
@@ -87,6 +87,16 @@ export default class TransferHistory extends Component{
 
         let {contacts} = this.state;
 
+        let chart = null;
+
+        if(!this.state.loading && contacts.length>1){
+            chart = (
+                <TransferChart
+                    data={contacts}
+                />
+            );
+        }
+
         return (
             <View style={styles.container}>
 
@@ -117,12 +127,14 @@ export default class TransferHistory extends Component{
                         />
                     }>
 
+                    {chart}
+
                     <FlatList
                         style={styles.list}
                         showsHorizontalScrollIndicator={false}
                         showsVerticalScrollIndicator={false}
                         keyExtractor={ (item, index) => index.toString() }
-                        data={ contacts }
+                        data={contacts}
                         ListEmptyComponent={this.listEmptyComponent.bind(this)}
                         renderItem={ ({ item, index }) => this.renderItem(item,index) }
                     />
