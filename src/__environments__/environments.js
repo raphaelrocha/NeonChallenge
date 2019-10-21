@@ -1,3 +1,4 @@
 export default {
-    showHttpLogs:false,
+    SHOW_HTTP_LOGS: false,
+    DEFAULT_TIMEOUT: 5000,
 }

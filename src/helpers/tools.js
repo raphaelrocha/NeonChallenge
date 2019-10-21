@@ -19,3 +19,20 @@ export function getRandomFloat (min, max) {
     max = Math.ceil(max);
     return Math.random() * (max - min) + min;
 }
+
+export function handleErrorMessage(error, defaultMessage) {
+    if(error && error.hasOwnProperty('message')){
+        defaultMessage = error.message;
+        if(error .hasOwnProperty('code')){
+            if(error.code === 'timeout'){
+                defaultMessage = defaultMessage + '\nTente novamente.';
+            } else if (error.code === 'noConnection'){
+                defaultMessage = defaultMessage + '\nTente novamente.';
+            } else {
+                defaultMessage = defaultMessage + '\nTente novamente mais tarde.';
+            }
+        }
+    }
+
+    return defaultMessage;
+}

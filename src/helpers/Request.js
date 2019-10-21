@@ -13,10 +13,10 @@ export default class Request {
 
     let url = this.endpoint;
 
-    const FETCH_TIMEOUT = 30000;
+    const FETCH_TIMEOUT = environments.DEFAULT_TIMEOUT;
     let didTimeOut = false;
 
-    if(environments.showHttpLogs){
+    if(environments.SHOW_HTTP_LOGS){
         console.log('request',url);
     }
 
@@ -32,7 +32,7 @@ export default class Request {
             clearTimeout(timeout);
 
             if(didTimeOut){
-              throw {message: 'Limite de tempo excedido.', code: 'Timeout', url};
+              throw {message: 'Limite de tempo excedido.', code: 'timeout', url};
             }
 
             if (!_.inRange(response.status, HTTP_CODES.OK, HTTP_CODES.MULTIPLE_CHOICES)){
@@ -46,7 +46,7 @@ export default class Request {
           })
           .then(response => response.json())
           .then(data =>{
-              if(environments.showHttpLogs){
+              if(environments.SHOW_HTTP_LOGS){
                   console.log('Response success',url,data);
               }
               resolve(data);
@@ -54,9 +54,9 @@ export default class Request {
           .catch(err => {
             let error = err.toString();
             if(error === 'TypeError: Network request failed'){
-              err = {message:'Verifique a conexão com a internet',code:'NoConnection'};
+              err = {message:'Verifique sua conexão com a internet.',code:'noConnection'};
             }
-            if(environments.showHttpLogs){
+            if(environments.SHOW_HTTP_LOGS){
                 console.warn('Response error',url,err);
             }
             reject(err);

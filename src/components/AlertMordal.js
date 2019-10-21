@@ -10,10 +10,22 @@ export default class AlertModal extends Component{
     }
 
     render () {
-        let {message,onPressConfirm,onPressCancel,cancelButtonText,confirmButtonText} = this.props;
+        let {message,onPressConfirm,onPressCancel,cancelButtonText,confirmButtonText,type} = this.props;
 
         if(!confirmButtonText){
             confirmButtonText = 'OK';
+        }
+
+        let bgColor = {backgroundColor: colors.BLUE_700};
+
+        if(type){
+            if(type === 'alert'){
+                bgColor = {backgroundColor: colors.BLUE_700};
+            } else if (type === 'warning'){
+                bgColor = {backgroundColor: colors.AMBER_700};
+            } else if (type === 'error'){
+                bgColor = {backgroundColor: colors.RED_700};
+            }
         }
 
         return(
@@ -23,7 +35,7 @@ export default class AlertModal extends Component{
 
                 <View style={styles.container}>
 
-                    <View style={styles.content}>
+                    <View style={[styles.content,bgColor]}>
 
                         <Text style={styles.message}>
                             {message}

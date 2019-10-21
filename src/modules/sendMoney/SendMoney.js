@@ -35,6 +35,7 @@ export default class SendMoney extends Component{
             showModal:false,
             showAlertModal:false,
             showLoadingModal:false,
+            typeAlertModal:'alert',
             profile
         };
     }
@@ -212,6 +213,7 @@ export default class SendMoney extends Component{
                     onPressSend={this.askConfirmation.bind(this)}/>
 
                 <AlertModal
+                    type={this.state.typeAlertModal}
                     message={this.state.message}
                     visible={this.state.showAlertModal}
                     confirmButtonText={this.state.confirmButtonText}
