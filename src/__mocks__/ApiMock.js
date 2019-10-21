@@ -1,4 +1,4 @@
-import LocalStorage from "./db/LocalStorage";
+import ApiMockStorage from "./db/ApiMockStorage";
 import GetProfile from "./commands/GetProfile";
 import GetContacts from "./commands/GetContacts";
 import {sleep} from "../helpers/tools";
@@ -19,12 +19,12 @@ export default class ApiMock {
     static async loadProfile() {
         try{
             await sleep(DEFAULT_DELAY);
-            let profile = await LocalStorage.getProfile();
+            let profile = await ApiMockStorage.getProfile();
             if(!profile){
                 let command = new GetProfile();
                 let response = await command.execute();
                 profile = response.results[0];
-                LocalStorage.saveProfile(profile);
+                ApiMockStorage.saveProfile(profile);
             }
             return profile;
         }catch (e) {
@@ -38,12 +38,12 @@ export default class ApiMock {
     static async loadContacts() {
         try{
             await sleep(DEFAULT_DELAY);
-            let contacts = await LocalStorage.getContacts();
+            let contacts = await ApiMockStorage.getContacts();
             if(!contacts){
                 let command = new GetContacts();
                 let response = await command.execute();
                 contacts = response.results;
-                await LocalStorage.saveContacts(contacts);
+                await ApiMockStorage.saveContacts(contacts);
             }
             return contacts;
         }catch (e) {
@@ -57,7 +57,7 @@ export default class ApiMock {
     static async loadContactsWithTransfer (myUuid) {
         try{
             await sleep(DEFAULT_DELAY);
-            let contacts = await LocalStorage.getContacts();
+            let contacts = await ApiMockStorage.getContacts();
             if(!contacts){
                 contacts = [];
             }
@@ -65,7 +65,7 @@ export default class ApiMock {
             let promises = contacts.map(async (contact)=>{
                 let uuid = myUuid+'='+contact.login.uuid;
                 console.log(uuid);
-                let value = await LocalStorage.getTransfersValue(uuid);
+                let value = await ApiMockStorage.getTransfersValue(uuid);
                 if(value){
                     console.log('value',value);
                     contact.transferValue = value;
@@ -84,7 +84,7 @@ export default class ApiMock {
         try{
             await sleep(DEFAULT_DELAY);
 
-            let oldValue = await LocalStorage.getTransfersValue(uuid);
+            let oldValue = await ApiMockStorage.getTransfersValue(uuid);
 
             if(oldValue){
                 oldValue = parseFloat(oldValue);
@@ -93,7 +93,7 @@ export default class ApiMock {
             value = oldValue+value;
             value = value.toString();
             console.warn('valor para salvar',uuid,value);
-            await LocalStorage.saveTransferValue(uuid,value);
+            await ApiMockStorage.saveTransferValue(uuid,value);
 
             let command = new PostTransfer(uuid,value);
             return await command.execute();
@@ -103,7 +103,7 @@ export default class ApiMock {
     };
 
     static async delete (){
-        await LocalStorage.clear();
+        await ApiMockStorage.clear();
     }
 
 }

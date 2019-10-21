@@ -4,7 +4,6 @@ import ApiMock from "../../__mocks__/ApiMock";
 import images from "../../assets/images";
 import colors from "../../constants/colors";
 import Loading from "../../components/Loading";
-import LocalStorage from "../../__mocks__/db/LocalStorage";
 import AlertModal from "../../components/AlertMordal";
 import {handleErrorMessage} from "../../helpers/tools";
 

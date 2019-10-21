@@ -5,7 +5,7 @@ const keys = {
   CONTACTS: 'contacts.db',
 };
 
-export default class LocalStorage {
+export default class ApiMockStorage {
 
   static async clear(){
     await storage.clear();

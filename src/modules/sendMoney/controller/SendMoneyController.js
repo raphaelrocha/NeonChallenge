@@ -1,4 +1,3 @@
-import LocalStorage from "../../../__mocks__/db/LocalStorage";
 
 export default class SendMoneyController {
 
