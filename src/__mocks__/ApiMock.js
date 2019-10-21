@@ -10,6 +10,14 @@ reais.
  */
 const DEFAULT_DELAY = 0;
 
+const sortByTransferAmount = function (a,b){
+    var keyA = parseFloat(a.transferValue);
+    var keyB = parseFloat(b.transferValue);
+    if(keyA < keyB) return 1;
+    if(keyA > keyB) return -1;
+    return 0;
+};
+
 export default class ApiMock {
 
     /*
@@ -70,6 +78,7 @@ export default class ApiMock {
                 }
             });
             await Promise.all(promises);
+            resultContacts.sort(sortByTransferAmount);
             return resultContacts;
         }catch (e) {
             throw e

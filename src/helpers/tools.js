@@ -36,11 +36,3 @@ export function handleErrorMessage(error, defaultMessage) {
 
     return defaultMessage;
 }
-
-export function sortByTransferAmount(a,b){
-    var keyA = parseFloat(a.transferValue);
-    var keyB = parseFloat(b.transferValue);
-    if(keyA < keyB) return 1;
-    if(keyA > keyB) return -1;
-    return 0;
-}

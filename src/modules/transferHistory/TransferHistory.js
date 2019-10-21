@@ -43,7 +43,6 @@ export default class TransferHistory extends Component{
             if(!contacts){
                 contacts = [];
             }
-            contacts.sort(sortByTransferAmount);
             this.setState({contacts, loading:false, refreshing: false});
         }catch (e) {
             console.log('TransferHistory','Erro ao carregar contatos',e);
