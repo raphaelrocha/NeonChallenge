@@ -6,6 +6,7 @@ import Toolbar, {LIGHT} from "../../components/Toolbar";
 import ApiMock from "../../__mocks__/ApiMock";
 import ContactShimmerItem from "../../components/ContactShimmerItem";
 import ContactItem from "../../components/ContactItem";
+import {sortByTransferAmount} from "../../helpers/tools";
 
 export default class TransferHistory extends Component{
 
@@ -42,6 +43,7 @@ export default class TransferHistory extends Component{
             if(!contacts){
                 contacts = [];
             }
+            contacts.sort(sortByTransferAmount);
             this.setState({contacts, loading:false, refreshing: false});
         }catch (e) {
             console.log('TransferHistory','Erro ao carregar contatos',e);

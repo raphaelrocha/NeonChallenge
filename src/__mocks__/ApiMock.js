@@ -63,10 +63,8 @@ export default class ApiMock {
             let resultContacts = [];
             let promises = contacts.map(async (contact)=>{
                 let uuid = myUuid+'='+contact.login.uuid;
-                console.log(uuid);
                 let value = await ApiMockStorage.getTransfersValue(uuid);
                 if(value){
-                    console.log('value',value);
                     contact.transferValue = value;
                     resultContacts.push(contact);
                 }
@@ -87,15 +85,10 @@ export default class ApiMock {
 
             value = parseFloat(value);
 
-            console.warn('value',value);
-
             if(oldValue){
                 oldValue = parseFloat(oldValue);
-                console.warn('old value',oldValue);
                 value = oldValue+value;
             }
-
-            console.warn('soma',value);
 
             value = value.toString();
 
