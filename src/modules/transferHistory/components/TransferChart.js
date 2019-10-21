@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, Image, StyleSheet, View, Text, RefreshControl, ScrollView} from 'react-native';
+import {FlatList, Image, StyleSheet, View} from 'react-native';
 import colors from "../../../constants/colors";
 import ChartItem from "./ChartItem";
 import images from "../../../assets/images";

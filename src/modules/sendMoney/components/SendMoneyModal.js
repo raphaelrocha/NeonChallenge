@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, View, Modal, TouchableOpacity, Text} from 'react-native';
+import {Image, Modal, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import colors from "../../../constants/colors";
 import images from "../../../assets/images";
 import TextInputMask from "react-native-masked-text/lib/text-input-mask";

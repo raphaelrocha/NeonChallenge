@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, Image, StyleSheet, View, Text, RefreshControl, ScrollView} from 'react-native';
+import {Image, StyleSheet, Text, View} from 'react-native';
 import colors from "../../../constants/colors";
 import _ from "lodash";
 

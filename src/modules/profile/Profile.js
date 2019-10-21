@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View, Image, AppState, ScrollView, RefreshControl} from "react-native";
+import {AppState, Image, RefreshControl, ScrollView, StyleSheet, Text, TouchableOpacity, View} from "react-native";
 import ApiMock from "../../__mocks__/ApiMock";
 import images from "../../assets/images";
 import colors from "../../constants/colors";

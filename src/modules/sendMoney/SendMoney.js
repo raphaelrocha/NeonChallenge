@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, Image, RefreshControl, ScrollView, StyleSheet, Text, View} from 'react-native';
+import {FlatList, Image, RefreshControl, StyleSheet, Text, View} from 'react-native';
 import Toolbar, {LIGHT} from "../../components/Toolbar";
 import colors from "../../constants/colors";
 import images from "../../assets/images";
