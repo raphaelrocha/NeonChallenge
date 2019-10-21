@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, View, FlatList, Text} from 'react-native';
+import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
 import Toolbar, {LIGHT} from "../../components/Toolbar";
 import colors from "../../constants/colors";
 import images from "../../assets/images";
@@ -10,6 +10,7 @@ import SendMoneyModal from "./components/SendMoneyModal";
 import SendMoneyController from "./controller/SendMoneyController";
 import AlertModal from "../../components/AlertMordal";
 import LoadingModal from "../../components/LoadingModal";
+import {handleErrorMessage} from "../../helpers/tools";
 
 export default class SendMoney extends Component{
 
@@ -49,29 +50,40 @@ export default class SendMoney extends Component{
         let name = to.name.first+' '+to.name.last;
 
         let onPressConfirmAlert = () => {
-            this.showAlertModal(false);
+            let alertParams = {show:false};
+            this.showAlert(alertParams);
             this.showLoadingModal(true);
             this.sendMoney();
         };
 
         let onPressCancelAlert = () => {
-            this.showAlertModal(false);
+            let alertParams = {show:false};
+            this.showAlert(alertParams);
         };
 
-        this.showAlertModal(
-            true,
-            'Confirma o envio do dinheiro para '+name+'?',
-            'Sim',
-            'Não',
+        let alertParams = {
+            show:true,
+            message: 'Confirma o envio do dinheiro para '+name+'?',
+            confirmButtonText: 'Sim',
+            cancelButtonText: 'Não',
             onPressConfirmAlert,
             onPressCancelAlert
-        );
+        };
+
+        this.showAlert(alertParams);
     };
 
-    showAlertModal = (showAlertModal, message,confirmButtonText,cancelButtonText,onPressConfirmAlert,onPressCancelAlert) => {
+    showAlert = (params) => {
+
+        let {show,message,confirmButtonText,cancelButtonText,onPressConfirmAlert,onPressCancelAlert,type} = params;
+
+        let showAlertModal = show;
+        let typeAlertModal = type;
+
         this.setState({
             showAlertModal,
             message,
+            typeAlertModal,
             showModal:false,
             confirmButtonText,
             cancelButtonText,
@@ -91,8 +103,28 @@ export default class SendMoney extends Component{
                 this.setState({contacts,loading:false});
             }
         }catch (e) {
-            console.log('SendMoney','Erro ao carregar contatos',e);
+            console.log('SendMoney','Erro ao carregar contatos.',e);
+
+            let message = handleErrorMessage(e,'Erro ao carregar contatos.');
+
             this.setState({contacts:[],loading:false});
+
+            let type;
+
+            if(e.hasOwnProperty('code')){
+                if(e.code === 'noConnection'){
+                    type = 'warning';
+                }
+            }
+
+            let alertMessageParams = {
+                show:true,
+                message,
+                confirmButtonText:'OK',
+                type
+            };
+
+            this.showAlert(alertMessageParams);
         }
     };
 
@@ -119,7 +151,16 @@ export default class SendMoney extends Component{
                 this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
             };
 
-            this.showAlertMessage(message,'OK',undefined,onPressConfirmAlert,onPressCancelAlert)
+            let alertParams = {
+                type:'alert',
+                show:true,
+                confirmButtonText:'ok',
+                onPressConfirmAlert,
+                onPressCancelAlert,
+            };
+
+            this.showAlert(alertParams);
+
         }catch (e) {
             let onPressConfirmAlert = () => {
                 this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
@@ -128,22 +169,29 @@ export default class SendMoney extends Component{
             let onPressCancelAlert = () => {
                 this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
             };
-            let message = 'Erro ao fazer a transfêrencia.';
-            console.warn(message,e);
-            this.showAlertMessage(message,'OK',undefined,onPressConfirmAlert,onPressCancelAlert)
+
+            let message = handleErrorMessage(e,'Erro ao fazer a transfêrencia.');
+
+            let type = 'error';
+
+            if(e.hasOwnProperty('code')){
+                if(e.code === 'noConnection'){
+                    type = 'warning';
+                }
+            }
+
+            let alertParams = {
+                show:true,
+                message,
+                confirmButtonText:'OK',
+                onPressConfirmAlert,
+                onPressCancelAlert,
+                type,
+            };
+
+            this.showAlert(alertParams);
         }
 
-    };
-
-    showAlertMessage = (message,confirmButtonText,cancelButtonText,onPressConfirmAlert,onPressCancelAlert) => {
-        this.showAlertModal(
-            true,
-            message,
-            confirmButtonText,
-            cancelButtonText,
-            onPressConfirmAlert,
-            onPressCancelAlert
-        );
     };
 
     renderItem = (item,index) => {
@@ -221,11 +269,15 @@ export default class SendMoney extends Component{
                     onPressConfirm={()=>{
                         if(this.state.onPressConfirmAlert){
                             this.state.onPressConfirmAlert();
+                        } else {
+                            this.setState({showAlertModal:false});
                         }
                     }}
                     onPressCancel={()=>{
                         if(this.state.onPressCancelAlert){
                             this.state.onPressCancelAlert();
+                        } else {
+                            this.setState({showAlertModal:false});
                         }
                     }}
                 />
