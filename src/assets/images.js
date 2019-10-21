@@ -5,4 +5,5 @@ export default {
     close: require('./images/close.png'),
     exchange: require('./images/exchange.png'),
     contactBook: require('./images/contact-book.png'),
+    bgChart: require('./images/bg-chart.jpg'),
 }

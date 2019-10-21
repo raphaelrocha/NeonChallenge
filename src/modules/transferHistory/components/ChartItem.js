@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {FlatList, Image, StyleSheet, View, Text, RefreshControl, ScrollView} from 'react-native';
 import colors from "../../../constants/colors";
+import _ from "lodash";
 
 export default class ChartItem extends Component {
 
@@ -9,13 +10,56 @@ export default class ChartItem extends Component {
 
     }
 
+    calculateHeigthBar = (value) => {
+
+        let height = 30;
+
+        if(_.inRange(value , 0 , 100.00)){
+            height = 30;
+        }
+        else if(_.inRange(value , 100 , 200)){
+            height = 40;
+        }
+        else if(_.inRange(value , 200 , 300)){
+            height = 50;
+        }
+        else if(_.inRange(value , 300 , 400)){
+            height = 55;
+        }
+        else if(_.inRange(value , 400 , 500)){
+            height = 60;
+        }
+        else if(_.inRange(value , 500 , 600)){
+            height = 65;
+        }
+        else if(_.inRange(value , 600 , 700)){
+            height = 70;
+        }
+        else if(_.inRange(value , 700 , 800)){
+            height = 75;
+        }
+        else if(_.inRange(value , 800 , 900)){
+            height = 80;
+        }
+        else if(_.inRange(value , 900 , 1000)){
+            height = 90;
+        }
+        else if(_.inRange(value , 1000 , 10000)){
+            height = 100;
+        }
+        else{
+            height = 140;
+        }
+
+        return {height};
+    };
+
     render(){
         let {item,index,lastItem} = this.props;
 
-        let height;
-        if(index*10 <= 140){
-            height = {height: 140 - index*10};
-        }
+        let value = parseFloat(item.transferValue).toFixed(2);
+
+        let height = this.calculateHeigthBar(value);
 
         let marginLeft;
 
@@ -42,7 +86,7 @@ export default class ChartItem extends Component {
                                 numberOfLines={1}
                                 ellipsizeMode={'tail'}
                                 style={styles.value}>
-                                {item.transferValue}
+                                {value}
                             </Text>
 
                         </View>
@@ -68,7 +112,7 @@ export default class ChartItem extends Component {
 const styles = StyleSheet.create({
     container:{
         margin: 2,
-        width:80,
+        width:70,
     },
     barContainer:{
         flex: 1,

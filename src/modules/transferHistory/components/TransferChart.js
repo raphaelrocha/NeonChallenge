@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {FlatList, Image, StyleSheet, View, Text, RefreshControl, ScrollView} from 'react-native';
 import colors from "../../../constants/colors";
 import ChartItem from "./ChartItem";
+import images from "../../../assets/images";
 
 export default class TransferChart extends Component{
 
@@ -30,6 +31,11 @@ export default class TransferChart extends Component{
 
         return (
             <View style={styles.container}>
+
+                <Image
+                    style={styles.background}
+                    source={images.bgChart}/>
+
                 <FlatList
                     style={styles.list}
                     horizontal={true}
@@ -43,7 +49,6 @@ export default class TransferChart extends Component{
             </View>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
@@ -52,6 +57,13 @@ const styles = StyleSheet.create({
         borderColor: colors.WHITE_1000,
         height: 200,
         paddingBottom: 5,
+    },
+    background:{
+        width: '100%',
+        position: 'absolute',
+        top:0,
+        height: 198,
+        resizeMode: 'stretch'
     },
     list:{
         flex: 1,
