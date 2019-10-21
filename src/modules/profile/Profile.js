@@ -172,10 +172,12 @@ export default class Profile extends Component{
 
         return (
             <View style={styles.body}>
+
                 <Image
                     style={styles.background}
                     source={images.bgGrad}
                 />
+
                 <ScrollView
                     showsHorizontalScrollIndicator={false}
                     showsVerticalScrollIndicator={false}
@@ -217,9 +219,8 @@ export default class Profile extends Component{
                         }}/>
 
                 </ScrollView>
+
             </View>
-
-
         );
     }
 }

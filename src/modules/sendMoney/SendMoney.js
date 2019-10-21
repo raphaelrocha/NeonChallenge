@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, Image, StyleSheet, Text, View} from 'react-native';
+import {FlatList, Image, RefreshControl, StyleSheet, Text, View} from 'react-native';
 import Toolbar, {LIGHT} from "../../components/Toolbar";
 import colors from "../../constants/colors";
 import images from "../../assets/images";
@@ -37,7 +37,8 @@ export default class SendMoney extends Component{
             showAlertModal:false,
             showLoadingModal:false,
             typeAlertModal:'alert',
-            profile
+            profile,
+            refreshing: false
         };
     }
 
@@ -81,6 +82,7 @@ export default class SendMoney extends Component{
         let typeAlertModal = type;
 
         this.setState({
+            refreshing:false,
             showAlertModal,
             message,
             typeAlertModal,
@@ -100,16 +102,16 @@ export default class SendMoney extends Component{
         try{
             let contacts = await ApiMock.loadContacts();
             if(contacts){
-                this.setState({contacts,loading:false});
+                this.setState({contacts, loading:false, refreshing: false});
             }
         }catch (e) {
             console.log('SendMoney','Erro ao carregar contatos.',e);
 
             let message = handleErrorMessage(e,'Erro ao carregar contatos.');
 
-            this.setState({contacts:[],loading:false});
+            this.setState({contacts:[], loading:false, refreshing:false});
 
-            let type;
+            let type = 'error';
 
             if(e.hasOwnProperty('code')){
                 if(e.code === 'noConnection'){
@@ -138,7 +140,7 @@ export default class SendMoney extends Component{
 
             let response = await ApiMock.sendMoney(myUuid,toUuid,value);
 
-            this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
+            this.setState({showModal:false, showLoadingModal:false, showAlertModal:false, refreshing:false});
 
             let message = response.id+' - A transferência para '+name+' foi realizada com sucesso.';
 
@@ -163,11 +165,11 @@ export default class SendMoney extends Component{
 
         }catch (e) {
             let onPressConfirmAlert = () => {
-                this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
+                this.setState({showModal:false, showLoadingModal:false, showAlertModal:false, refreshing:false});
             };
 
             let onPressCancelAlert = () => {
-                this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
+                this.setState({showModal:false, showLoadingModal:false, showAlertModal:false, refreshing:false});
             };
 
             let message = handleErrorMessage(e,'Erro ao fazer a transfêrencia.');
@@ -247,12 +249,23 @@ export default class SendMoney extends Component{
 
                 <FlatList
                     style={styles.list}
-                    bounces={ false }
                     showsVerticalScrollIndicator={ false }
                     keyExtractor={ (item, index) => index.toString() }
                     data={ contacts }
                     ListEmptyComponent={this.listEmptyComponent.bind(this)}
-                    renderItem={ ({ item, index }) => this.renderItem(item,index) } />
+                    renderItem={ ({ item, index }) => this.renderItem(item,index) }
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={async ()=>{
+                                this.setState({refreshing: true});
+                                this.loadContent();
+                            }}
+                            title="Carregando..."
+                            tintColor={colors.WHITE_1000}
+                            titleColor={colors.WHITE_1000}
+                        />
+                    }/>
 
                 <SendMoneyModal
                     data={this.state.modalData}
