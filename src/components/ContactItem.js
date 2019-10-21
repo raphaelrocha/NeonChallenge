@@ -18,12 +18,18 @@ export default class ContactItem extends Component{
 
         let disabled = false;
 
+        let value;
+
         if(lastItem){
             styleLastItem = {borderBottomWidth:0}
         }
 
         if(!onPress){
             disabled = true;
+        }
+
+        if(item.transferValue){
+            value = parseFloat(item.transferValue).toFixed(2);
         }
 
         return (
@@ -55,11 +61,11 @@ export default class ContactItem extends Component{
                         {this.props.item.cell}
                     </Text>
 
-                    {item.transferValue
+                    {value
                         ?
                         <TextMask
                             style={styles.value}
-                            value={item.transferValue}
+                            value={value}
                             type={'money'}/>
                         :
                         null
