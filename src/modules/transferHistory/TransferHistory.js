@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, Image, StyleSheet, View, Text, RefreshControl} from 'react-native';
+import {FlatList, Image, StyleSheet, View, Text, RefreshControl, ScrollView} from 'react-native';
 import colors from "../../constants/colors";
 import images from "../../assets/images";
 import Toolbar, {LIGHT} from "../../components/Toolbar";
@@ -100,13 +100,9 @@ export default class TransferHistory extends Component{
                     barStyle={LIGHT}
                 />
 
-                <FlatList
-                    style={styles.list}
-                    showsVerticalScrollIndicator={ false }
-                    keyExtractor={ (item, index) => index.toString() }
-                    data={ contacts }
-                    ListEmptyComponent={this.listEmptyComponent.bind(this)}
-                    renderItem={ ({ item, index }) => this.renderItem(item,index) }
+                <ScrollView
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
                     refreshControl={
                         <RefreshControl
                             refreshing={this.state.refreshing}
@@ -118,7 +114,19 @@ export default class TransferHistory extends Component{
                             tintColor={colors.WHITE_1000}
                             titleColor={colors.WHITE_1000}
                         />
-                    }/>
+                    }>
+
+                    <FlatList
+                        style={styles.list}
+                        showsHorizontalScrollIndicator={false}
+                        showsVerticalScrollIndicator={false}
+                        keyExtractor={ (item, index) => index.toString() }
+                        data={ contacts }
+                        ListEmptyComponent={this.listEmptyComponent.bind(this)}
+                        renderItem={ ({ item, index }) => this.renderItem(item,index) }
+                    />
+
+                </ScrollView>
 
             </View>
         );
