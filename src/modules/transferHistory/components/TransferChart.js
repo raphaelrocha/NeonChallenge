@@ -15,9 +15,11 @@ export default class TransferChart extends Component{
     };
 
     renderItem = (item, index) => {
-        console.log(item);
+        let {data} = this.props;
         return (
             <ChartItem
+                index={index}
+                lastItem={index === data.length-1}
                 item={item}/>
         );
     };
@@ -51,7 +53,5 @@ const styles = StyleSheet.create({
     },
     list:{
         flex: 1,
-        marginLeft: 10,
-        marginRight: 10,
-    }
+    },
 });
