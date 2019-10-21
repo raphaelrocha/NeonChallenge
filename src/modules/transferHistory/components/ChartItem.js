@@ -102,12 +102,18 @@ export default class ChartItem extends Component {
                         source={{uri:item.picture.large}}
                     />
 
+                    <View
+                        style={styles.avatarFrame}/>
+
                 </View>
 
             </View>
         );
     }
 }
+
+const frameWh = 45;
+const avatarWh = frameWh - 5;
 
 const styles = StyleSheet.create({
     container:{
@@ -129,23 +135,27 @@ const styles = StyleSheet.create({
         borderTopLeftRadius: 3
     },
     avatarContainer:{
-        marginLeft: 10,
-        marginRight: 10,
         alignSelf: 'center',
-        height: 42,
-        width: 42,
-        borderRadius: 42/2,
-        borderWidth:3,
-        borderColor:colors.WHITE_1000,
+        height: frameWh,
+        width: frameWh,
+        borderRadius: frameWh/2,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.ALPHA_GREY_46,
     },
     avatar:{
-        borderRadius: 38/2,
-        height: 38,
-        width: 38,
-        resizeMode:'contain'
+        height: avatarWh,
+        width: avatarWh,
+        borderRadius: avatarWh/2+5,
+        resizeMode: 'contain',
+    },
+    avatarFrame:{
+        position: 'absolute',
+        height: frameWh,
+        width: frameWh,
+        borderRadius: frameWh/2,
+        borderWidth:3,
+        borderColor:colors.WHITE_1000,
     },
     valueContainer:{
         alignSelf: 'center',

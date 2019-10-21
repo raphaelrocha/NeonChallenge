@@ -18,6 +18,8 @@ export default class TransferHistory extends Component{
          */
         let contacts = [];
 
+        let contactsChart = [];
+
         for(let i = 0; i<10; i++){
             contacts.push(i);
         }
@@ -27,6 +29,7 @@ export default class TransferHistory extends Component{
         this.state = {
             loading:true,
             contacts,
+            contactsChart,
             profile,
             refreshing:false,
         };
@@ -39,14 +42,23 @@ export default class TransferHistory extends Component{
     loadContent = async () => {
         try{
             let myUuid = this.state.profile.login.uuid;
-            let contacts = await ApiMock.loadContactsWithTransfer(myUuid);
+            let result = await ApiMock.loadContactsWithTransfer(myUuid);
+
+            let contacts = result.contacts;
+            let contactsChart = result.contactsChart;
+
             if(!contacts){
                 contacts = [];
             }
-            this.setState({contacts, loading:false, refreshing: false});
+
+            if(!contactsChart){
+                contactsChart = [];
+            }
+
+            this.setState({contacts,contactsChart, loading:false, refreshing: false});
         }catch (e) {
             console.log('TransferHistory','Erro ao carregar contatos',e);
-            this.setState({contacts:[],loading:false, refreshing: false});
+            this.setState({contacts:[],contactsChart:[],loading:false, refreshing: false});
         }
     };
 
@@ -85,14 +97,14 @@ export default class TransferHistory extends Component{
 
     render () {
 
-        let {contacts} = this.state;
+        let {contacts,contactsChart} = this.state;
 
         let chart = null;
 
-        if(!this.state.loading && contacts.length>1){
+        if(!this.state.loading && contactsChart.length>1){
             chart = (
                 <TransferChart
-                    data={contacts}
+                    data={contactsChart}
                 />
             );
         }

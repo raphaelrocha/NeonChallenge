@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, View, TouchableOpacity} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import colors from "../constants/colors";
 import TextMask from "react-native-masked-text/lib/text-mask";
 
@@ -49,6 +49,9 @@ export default class ContactItem extends Component{
                         source={{uri:item.picture.large}}
                     />
 
+                    <View
+                        style={styles.avatarFrame}/>
+
                 </View>
 
                 <View style={styles.content}>
@@ -79,6 +82,9 @@ export default class ContactItem extends Component{
 
 }
 
+const frameWh = 70;
+const avatarWh = frameWh - 3;
+
 const styles = StyleSheet.create({
     container:{
         paddingTop: 16,
@@ -89,20 +95,26 @@ const styles = StyleSheet.create({
     },
     avatarContainer:{
         alignSelf: 'center',
-        height: 70,
-        width: 70,
-        borderRadius: 35,
-        borderWidth:3,
-        borderColor:colors.WHITE_1000,
+        height: frameWh,
+        width: frameWh,
+        borderRadius: frameWh/2,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.ALPHA_GREY_46,
     },
     avatar:{
-        borderRadius: 64/2,
-        height: 64,
-        width: 64,
+        height: avatarWh,
+        width: avatarWh,
+        borderRadius: avatarWh/2,
         resizeMode: 'contain',
+    },
+    avatarFrame:{
+        position: 'absolute',
+        height: frameWh,
+        width: frameWh,
+        borderRadius: frameWh/2,
+        borderWidth:3,
+        borderColor:colors.WHITE_1000,
     },
     content:{
         justifyContent: 'center',

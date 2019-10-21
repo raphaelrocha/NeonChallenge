@@ -27,12 +27,12 @@ export default class ApiMockStorage {
     return await storage.getItem(keys.CONTACTS).then(contacts => JSON.parse(contacts));
   }
 
-  static async saveTransferValue(uuid,value){
-    await storage.setItem(uuid, value);
+  static async saveTransferValue(uuid,register){
+    await storage.setItem(uuid, JSON.stringify(register));
   }
 
   static async getTransfersValue(uuid){
-    return await storage.getItem(uuid).then(value => {return value});
+    return await storage.getItem(uuid).then(register => JSON.parse(register));
   }
 
 }

@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {View, ActivityIndicator} from 'react-native';
+import {ActivityIndicator, View} from 'react-native';
 import colors from "../constants/colors";
 
 export default class Loading extends Component{

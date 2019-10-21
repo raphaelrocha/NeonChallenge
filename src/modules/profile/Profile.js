@@ -253,7 +253,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         height: 150,
         width: 150,
-        borderRadius: 75,
+        borderRadius: 150/2,
         borderWidth:5,
         borderColor:colors.WHITE_1000,
         alignItems: 'center',
@@ -264,7 +264,7 @@ const styles = StyleSheet.create({
         height: 140,
         width: 140,
         resizeMode: 'contain',
-        borderRadius: 70,
+        borderRadius: 140/2,
     },
     name:{
         color: colors.WHITE_1000,
