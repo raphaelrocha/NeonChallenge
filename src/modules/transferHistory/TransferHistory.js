@@ -39,9 +39,10 @@ export default class TransferHistory extends Component{
         try{
             let myUuid = this.state.profile.login.uuid;
             let contacts = await ApiMock.loadContactsWithTransfer(myUuid);
-            if(contacts){
-                this.setState({contacts, loading:false, refreshing: false});
+            if(!contacts){
+                contacts = [];
             }
+            this.setState({contacts, loading:false, refreshing: false});
         }catch (e) {
             console.log('TransferHistory','Erro ao carregar contatos',e);
             this.setState({contacts:[],loading:false, refreshing: false});

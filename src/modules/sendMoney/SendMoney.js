@@ -156,6 +156,7 @@ export default class SendMoney extends Component{
             let alertParams = {
                 type:'alert',
                 show:true,
+                message,
                 confirmButtonText:'ok',
                 onPressConfirmAlert,
                 onPressCancelAlert,
