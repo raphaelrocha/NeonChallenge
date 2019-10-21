@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Modal, StyleSheet, Text, View} from 'react-native';
 import colors from "../constants/colors";
 import Loading from "./Loading";
+import {translate} from "../locales";
 
 export default class LoadingModal extends Component{
 
@@ -24,7 +25,7 @@ export default class LoadingModal extends Component{
                         <Loading/>
 
                         <Text style={styles.message}>
-                            Aguarde...
+                            {translate('wait')}...
                         </Text>
 
                     </View>

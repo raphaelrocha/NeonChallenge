@@ -5,6 +5,7 @@ import images from "../../../assets/images";
 import TextInputMask from "react-native-masked-text/lib/text-input-mask";
 import {replaceAll} from "../../../helpers/tools";
 import SendMoneyController from "../controller/SendMoneyController";
+import {translate} from "../../../locales";
 
 export default class SendMoneyModal extends Component{
 
@@ -63,7 +64,7 @@ export default class SendMoneyModal extends Component{
                         </Text>
 
                         <Text style={styles.valueLabel}>
-                            Valor para enviar:
+                            {translate('valueToSend')}:
                         </Text>
 
                         <TextInputMask
@@ -98,7 +99,7 @@ export default class SendMoneyModal extends Component{
                             style={[styles.sendButton,disabled?styles.disabledSendButton:undefined]}>
 
                             <Text style={styles.sendButtonText}>
-                                ENVIAR
+                                {translate('send')}
                             </Text>
 
                         </TouchableOpacity>

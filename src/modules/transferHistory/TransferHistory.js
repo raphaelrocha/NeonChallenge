@@ -7,6 +7,7 @@ import ApiMock from "../../__mocks__/ApiMock";
 import ContactShimmerItem from "../../components/ContactShimmerItem";
 import ContactItem from "../../components/ContactItem";
 import TransferChart from "./components/TransferChart";
+import {translate} from "../../locales";
 
 export default class TransferHistory extends Component{
 
@@ -89,7 +90,7 @@ export default class TransferHistory extends Component{
                     source={images.exchange}
                 />
                 <Text style={styles.emptyMessage}>
-                    Ainda não há movimentações para mostrar.
+                    {translate('emptyListTransferHistoryText')}
                 </Text>
             </View>
         );
@@ -119,7 +120,7 @@ export default class TransferHistory extends Component{
 
                 <Toolbar
                     navigation={this.props.navigation}
-                    title='HISTORICO DE ENVIOS'
+                    title={translate('transferHistory').toUpperCase()}
                     barStyle={LIGHT}
                 />
 
@@ -133,7 +134,7 @@ export default class TransferHistory extends Component{
                                 this.setState({refreshing: true});
                                 this.loadContent();
                             }}
-                            title="Carregando..."
+                            title={translate('loading').toUpperCase()+'...'}
                             tintColor={colors.WHITE_1000}
                             titleColor={colors.WHITE_1000}
                         />

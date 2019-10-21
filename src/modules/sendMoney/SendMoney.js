@@ -10,7 +10,8 @@ import SendMoneyModal from "./components/SendMoneyModal";
 import SendMoneyController from "./controller/SendMoneyController";
 import AlertModal from "../../components/AlertMordal";
 import LoadingModal from "../../components/LoadingModal";
-import {handleErrorMessage} from "../../helpers/tools";
+import {handleErrorMessage, replaceAll} from "../../helpers/tools";
+import {translate} from "../../locales";
 
 export default class SendMoney extends Component{
 
@@ -62,11 +63,14 @@ export default class SendMoney extends Component{
             this.showAlert(alertParams);
         };
 
+        let message = translate('askForConfirmationToSend');
+        message = replaceAll(message,':name',name);
+
         let alertParams = {
             show:true,
-            message: 'Confirma o envio do dinheiro para '+name+'?',
-            confirmButtonText: 'Sim',
-            cancelButtonText: 'Não',
+            message,
+            confirmButtonText: translate('yes'),
+            cancelButtonText: translate('no'),
             onPressConfirmAlert,
             onPressCancelAlert
         };
@@ -107,7 +111,7 @@ export default class SendMoney extends Component{
         }catch (e) {
             console.log('SendMoney','Erro ao carregar contatos.',e);
 
-            let message = handleErrorMessage(e,'Erro ao carregar contatos.');
+            let message = handleErrorMessage(e,translate('errorLoadingContacts'));
 
             this.setState({contacts:[], loading:false, refreshing:false});
 
@@ -122,7 +126,7 @@ export default class SendMoney extends Component{
             let alertMessageParams = {
                 show:true,
                 message,
-                confirmButtonText:'OK',
+                confirmButtonText:translate('ok'),
                 type
             };
 
@@ -142,7 +146,9 @@ export default class SendMoney extends Component{
 
             this.setState({showModal:false, showLoadingModal:false, showAlertModal:false, refreshing:false});
 
-            let message = response.id+' - A transferência para '+name+' foi realizada com sucesso.';
+            let message = translate('transferSuccessfulMessage');
+            message = replaceAll(message,':name', name);
+            message = response.id+' - '+message;
 
             let onPressConfirmAlert = () => {
                 this.setState({showModal:false,showLoadingModal:false,showAlertModal:false});
@@ -157,7 +163,7 @@ export default class SendMoney extends Component{
                 type:'alert',
                 show:true,
                 message,
-                confirmButtonText:'ok',
+                confirmButtonText:translate('ok'),
                 onPressConfirmAlert,
                 onPressCancelAlert,
             };
@@ -173,7 +179,7 @@ export default class SendMoney extends Component{
                 this.setState({showModal:false, showLoadingModal:false, showAlertModal:false, refreshing:false});
             };
 
-            let message = handleErrorMessage(e,'Erro ao fazer a transfêrencia.');
+            let message = handleErrorMessage(e,translate('errorWhileTransferring'));
 
             let type = 'error';
 
@@ -186,7 +192,7 @@ export default class SendMoney extends Component{
             let alertParams = {
                 show:true,
                 message,
-                confirmButtonText:'OK',
+                confirmButtonText:translate('ok'),
                 onPressConfirmAlert,
                 onPressCancelAlert,
                 type,
@@ -224,7 +230,7 @@ export default class SendMoney extends Component{
                     source={images.contactBook}
                 />
                 <Text style={styles.emptyMessage}>
-                    Você ainda não possui contatos para enviar dinheiro.
+                    {translate('emptyListSendMoneyText')}
                 </Text>
             </View>
         );
@@ -244,7 +250,7 @@ export default class SendMoney extends Component{
 
                 <Toolbar
                     navigation={this.props.navigation}
-                    title='ENVIAR DINHEIRO'
+                    title={translate('sendMoney').toUpperCase()}
                     barStyle={LIGHT}
                 />
 
@@ -263,7 +269,7 @@ export default class SendMoney extends Component{
                                 this.setState({refreshing: true});
                                 this.loadContent();
                             }}
-                            title="Carregando..."
+                            title={translate('loading').toUpperCase()+'...'}
                             tintColor={colors.WHITE_1000}
                             titleColor={colors.WHITE_1000}
                         />

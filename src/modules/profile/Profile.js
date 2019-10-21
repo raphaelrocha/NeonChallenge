@@ -6,6 +6,7 @@ import colors from "../../constants/colors";
 import Loading from "../../components/Loading";
 import AlertModal from "../../components/AlertMordal";
 import {handleErrorMessage} from "../../helpers/tools";
+import {translate} from "../../locales";
 
 export default class Profile extends Component{
 
@@ -140,7 +141,7 @@ export default class Profile extends Component{
                             onPress={this.goToSendMoney.bind(this)}>
 
                             <Text style={styles.buttonText}>
-                                ENVIAR DINHEIRO
+                                {translate('sendMoney').toUpperCase()}
                             </Text>
 
                         </TouchableOpacity>
@@ -150,7 +151,7 @@ export default class Profile extends Component{
                             onPress={this.goToTransferHistory.bind(this)}>
 
                             <Text style={styles.buttonText}>
-                                HISTÓRICO DE ENVIOS
+                                {translate('transferHistory').toUpperCase()}
                             </Text>
 
                         </TouchableOpacity>
@@ -188,7 +189,7 @@ export default class Profile extends Component{
                                 this.setState({refreshing: true});
                                 this.loadNewProfile();
                             }}
-                            title="Carregando..."
+                            title={translate('loading').toUpperCase()+'...'}
                             tintColor={colors.WHITE_1000}
                             titleColor={colors.WHITE_1000}
                         />

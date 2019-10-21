@@ -1,3 +1,5 @@
+import {translate} from "../locales";
+
 export function sleep(ms) {
     return new Promise(resolve => {
         setTimeout(resolve, ms);
@@ -25,14 +27,13 @@ export function handleErrorMessage(error, defaultMessage) {
         defaultMessage = error.message;
         if(error .hasOwnProperty('code')){
             if(error.code === 'timeout'){
-                defaultMessage = defaultMessage + '\nTente novamente.';
+                defaultMessage = defaultMessage + '\n'+translate('tryAgain');
             } else if (error.code === 'noConnection'){
-                defaultMessage = defaultMessage + '\nTente novamente.';
+                defaultMessage = defaultMessage + '\n'+translate('tryAgain');
             } else {
-                defaultMessage = defaultMessage + '\nTente novamente mais tarde.';
+                defaultMessage = defaultMessage + '\n'+translate('tryAgainLater');
             }
         }
     }
-
     return defaultMessage;
 }
