@@ -86,13 +86,20 @@ export default class ApiMock {
 
             let oldValue = await ApiMockStorage.getTransfersValue(uuid);
 
+            value = parseFloat(value);
+
+            console.warn('value',value);
+
             if(oldValue){
                 oldValue = parseFloat(oldValue);
+                console.warn('old value',oldValue);
+                value = oldValue+value;
             }
-            value = parseFloat(value);
-            value = oldValue+value;
+
+            console.warn('soma',value);
+
             value = value.toString();
-            console.warn('valor para salvar',uuid,value);
+
             await ApiMockStorage.saveTransferValue(uuid,value);
 
             let command = new PostTransfer(uuid,value);
