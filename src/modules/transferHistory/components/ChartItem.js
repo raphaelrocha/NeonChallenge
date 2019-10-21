@@ -12,9 +12,9 @@ export default class ChartItem extends Component {
     render(){
         let {item,index,lastItem} = this.props;
 
-        let alt;
-        if(index*10 <= 159){
-            alt = {height: 150 - index*10};
+        let height;
+        if(index*10 <= 140){
+            height = {height: 140 - index*10};
         }
 
         let marginLeft;
@@ -34,7 +34,7 @@ export default class ChartItem extends Component {
 
                 <View
                     style={styles.barContainer}>
-                    <View style={[styles.bar,alt]}>
+                    <View style={[styles.bar,height]}>
 
                         <View style={styles.valueContainer}>
 
@@ -63,12 +63,12 @@ export default class ChartItem extends Component {
             </View>
         );
     }
-
 }
 
 const styles = StyleSheet.create({
     container:{
         margin: 2,
+        width:80,
     },
     barContainer:{
         flex: 1,
@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     bar:{
         position: 'absolute',
         bottom: 0,
-        backgroundColor: colors.BLUE_700,
+        backgroundColor: colors.WHITE_1000,
         width: 6,
         height: 50,
         borderTopRightRadius: 3,
@@ -87,12 +87,12 @@ const styles = StyleSheet.create({
     avatarContainer:{
         marginLeft: 10,
         marginRight: 10,
-        alignSelf: 'flex-end',
+        alignSelf: 'center',
         height: 42,
         width: 42,
         borderRadius: 42/2,
         borderWidth:3,
-        borderColor:colors.BLUE_700,
+        borderColor:colors.WHITE_1000,
         alignItems: 'center',
         justifyContent: 'center',
         backgroundColor: colors.ALPHA_GREY_46,
@@ -105,18 +105,18 @@ const styles = StyleSheet.create({
     },
     valueContainer:{
         alignSelf: 'center',
-        backgroundColor: colors.BLUE_700,
+        backgroundColor: colors.WHITE_1000,
         position: 'absolute',
         top:0,
-        width: 62,
         alignItems: 'center',
         justifyContent: 'center',
-        padding: 2,
+        padding: 5,
         borderRadius: 10,
 
     },
     value:{
-        color: colors.WHITE_1000,
+        fontWeight: 'bold',
+        color: colors.GREY_900,
         textAlign: 'center',
         width:'100%',
         fontSize:10,

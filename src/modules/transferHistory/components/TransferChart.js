@@ -48,8 +48,10 @@ export default class TransferChart extends Component{
 
 const styles = StyleSheet.create({
     container:{
-        backgroundColor: colors.APLHA_WHITE_157,
+        borderBottomWidth:2,
+        borderColor: colors.WHITE_1000,
         height: 200,
+        paddingBottom: 5,
     },
     list:{
         flex: 1,
