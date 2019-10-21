@@ -74,6 +74,7 @@ const styles = StyleSheet.create({
         alignItems:'center',
         justifyContent:'center',
         height: '100%',
+        width:50,
     },
     backIcon:{
         height:30,
@@ -85,7 +86,7 @@ const styles = StyleSheet.create({
         height: '100%',
         alignItems:'center',
         justifyContent:'center',
-        marginRight: 30,
+        marginRight: 50,
     },
     title:{
         fontSize: 18,
