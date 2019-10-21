@@ -46,6 +46,7 @@ export default class TransferChart extends Component{
                     ListEmptyComponent={this.listEmptyComponent.bind(this)}
                     renderItem={ ({ item, index }) => this.renderItem(item,index) }
                 />
+
             </View>
         );
     }
