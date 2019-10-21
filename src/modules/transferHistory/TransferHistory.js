@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {FlatList, Image, StyleSheet, View, Text} from 'react-native';
+import {FlatList, Image, StyleSheet, View, Text, RefreshControl} from 'react-native';
 import colors from "../../constants/colors";
 import images from "../../assets/images";
 import Toolbar, {LIGHT} from "../../components/Toolbar";
@@ -26,7 +26,8 @@ export default class TransferHistory extends Component{
         this.state = {
             loading:true,
             contacts,
-            profile
+            profile,
+            refreshing:false,
         };
     }
 
@@ -39,11 +40,11 @@ export default class TransferHistory extends Component{
             let myUuid = this.state.profile.login.uuid;
             let contacts = await ApiMock.loadContactsWithTransfer(myUuid);
             if(contacts){
-                this.setState({contacts,loading:false});
+                this.setState({contacts, loading:false, refreshing: false});
             }
         }catch (e) {
             console.log('TransferHistory','Erro ao carregar contatos',e);
-            this.setState({contacts:[],loading:false});
+            this.setState({contacts:[],loading:false, refreshing: false});
         }
     };
 
@@ -57,8 +58,6 @@ export default class TransferHistory extends Component{
                 lastItem={index === contacts.length-1}
             />
         }
-
-        // item.transferValue = getRandomFloat(0.01,99.99);
 
         return (
             <ContactItem
@@ -102,12 +101,23 @@ export default class TransferHistory extends Component{
 
                 <FlatList
                     style={styles.list}
-                    bounces={ false }
                     showsVerticalScrollIndicator={ false }
                     keyExtractor={ (item, index) => index.toString() }
                     data={ contacts }
                     ListEmptyComponent={this.listEmptyComponent.bind(this)}
-                    renderItem={ ({ item, index }) => this.renderItem(item,index) } />
+                    renderItem={ ({ item, index }) => this.renderItem(item,index) }
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={async ()=>{
+                                this.setState({refreshing: true});
+                                this.loadContent();
+                            }}
+                            title="Carregando..."
+                            tintColor={colors.WHITE_1000}
+                            titleColor={colors.WHITE_1000}
+                        />
+                    }/>
 
             </View>
         );
