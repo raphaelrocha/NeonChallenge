@@ -2,7 +2,6 @@ import ApiMockStorage from "./db/ApiMockStorage";
 import GetProfile from "./commands/GetProfile";
 import GetContacts from "./commands/GetContacts";
 import {sleep} from "../helpers/tools";
-import SendMoneyController from "../modules/sendMoney/controller/SendMoneyController";
 import PostTransfer from "./commands/PostTransfer";
 
 /*
