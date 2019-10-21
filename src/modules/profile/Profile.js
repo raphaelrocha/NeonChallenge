@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import {StyleSheet, Text, TouchableOpacity, View, Image, AppState} from "react-native";
+import {StyleSheet, Text, TouchableOpacity, View, Image, AppState, ScrollView, RefreshControl} from "react-native";
 import ApiMock from "../../__mocks__/ApiMock";
 import images from "../../assets/images";
 import colors from "../../constants/colors";
@@ -17,9 +17,9 @@ export default class Profile extends Component{
             message:'',
             showAlertModal:false,
             confirmButtonText:'ok',
-            cancelButtonText: 'cancel',
             appState: AppState.currentState,
-            onError:false
+            onError:false,
+            refreshing: false
         };
     }
 
@@ -48,6 +48,7 @@ export default class Profile extends Component{
                 this.setState({
                     profile,
                     onError:false,
+                    refreshing: false,
                     showAlertModal:false,});
 
             })
@@ -61,13 +62,15 @@ export default class Profile extends Component{
 
                 if(error.hasOwnProperty('code')){
                     if(error.code === 'timeout' || error.code === 'noConnection'){
-                        onPressConfirmAlert = () => {
-                            this.setState({
-                                onError:false,
-                                showAlertModal:false,
-                            });
-                            this.getProfile();
-                        };
+                        if(!this.state.profile){
+                            onPressConfirmAlert = () => {
+                                this.setState({
+                                    onError:false,
+                                    showAlertModal:false,
+                                });
+                                this.getProfile();
+                            };
+                        }
                     }
 
                     if(error.code === 'noConnection'){
@@ -76,6 +79,7 @@ export default class Profile extends Component{
                 }
 
                 this.setState({
+                    refreshing: false,
                     onError:true,
                     typeAlertModal,
                     message,
@@ -97,7 +101,7 @@ export default class Profile extends Component{
     };
 
     loadNewProfile = async () => {
-        this.setState({profile:undefined});
+        // this.setState({profile:undefined});
         await ApiMock.delete();
         this.getProfile();
     };
@@ -106,14 +110,90 @@ export default class Profile extends Component{
 
         let {profile} = this.state;
 
-        if(!profile){
-            return (
-                <View style={styles.emptyContainer}>
-                    <Image
-                        style={styles.background}
-                        source={images.bgGrad}
-                    />
+        let content;
+
+        if(profile){
+            content = (
+                <View style={styles.content}>
+
+                    <View
+                        style={styles.avatarContainer}>
+
+                        <Image
+                            style={styles.avatar}
+                            source={{uri:profile.picture.large}}
+                        />
+
+                    </View>
+
+                    <Text style={styles.name}>
+                        {profile.name.first} {profile.name.last}
+                    </Text>
+
+                    <Text style={styles.email}>
+                        {profile.email}
+                    </Text>
+
+                    <View style={styles.buttonsContainer}>
+
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={this.goToSendMoney.bind(this)}>
+
+                            <Text style={styles.buttonText}>
+                                ENVIAR DINHEIRO
+                            </Text>
+
+                        </TouchableOpacity>
+
+                        <TouchableOpacity
+                            style={styles.button}
+                            onPress={this.goToTransferHistory.bind(this)}>
+
+                            <Text style={styles.buttonText}>
+                                HISTÓRICO DE ENVIOS
+                            </Text>
+
+                        </TouchableOpacity>
+
+                    </View>
+
+                </View>
+            );
+        } else{
+            content = (
+                <View style={styles.content}>
+
                     <Loading/>
+
+                </View>
+            );
+        }
+
+        return (
+            <View style={styles.body}>
+                <Image
+                    style={styles.background}
+                    source={images.bgGrad}
+                />
+                <ScrollView
+                    showsHorizontalScrollIndicator={false}
+                    showsVerticalScrollIndicator={false}
+                    contentContainerStyle={styles.contentContainerStyle}
+                    refreshControl={
+                        <RefreshControl
+                            refreshing={this.state.refreshing}
+                            onRefresh={async ()=>{
+                                this.setState({refreshing: true});
+                                this.loadNewProfile();
+                            }}
+                            title="Carregando..."
+                            tintColor={colors.WHITE_1000}
+                            titleColor={colors.WHITE_1000}
+                        />
+                    }>
+
+                    {content}
 
                     <AlertModal
                         type={this.state.typeAlertModal}
@@ -136,73 +216,26 @@ export default class Profile extends Component{
                             }
                         }}/>
 
-                </View>
-            );
-        }
+                </ScrollView>
+            </View>
 
-        return (
-            <View style={styles.container}>
 
-                <Image
-                    style={styles.background}
-                    source={images.bgGrad}
-                />
-
-                <TouchableOpacity
-                    onPress={this.loadNewProfile.bind(this)}
-                    style={styles.avatarContainer}>
-
-                    <Image
-                        style={styles.avatar}
-                        source={{uri:profile.picture.large}}
-                    />
-
-                </TouchableOpacity>
-
-                <Text style={styles.name}>
-                    {profile.name.first} {profile.name.last}
-                </Text>
-
-                <Text style={styles.email}>
-                    {profile.email}
-                </Text>
-
-                <View style={styles.buttonsContainer}>
-
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={this.goToSendMoney.bind(this)}>
-
-                        <Text style={styles.buttonText}>
-                            ENVIAR DINHEIRO
-                        </Text>
-
-                    </TouchableOpacity>
-
-                    <TouchableOpacity
-                        style={styles.button}
-                        onPress={this.goToTransferHistory.bind(this)}>
-
-                        <Text style={styles.buttonText}>
-                            HISTÓRICO DE ENVIOS
-                        </Text>
-
-                    </TouchableOpacity>
-
-                </View>
-
-            </View>);
+        );
     }
 }
 
 const styles = StyleSheet.create({
-    emptyContainer:{
+    body:{
+        alignItems: 'center',
         height: '100%',
         flexDirection: 'column',
-        alignItems: 'center',
-        justifyContent: 'center',
+        justifyContent: 'center'
     },
-    container:{
+    contentContainerStyle:{
+        flex: 1
+    },
+    content:{
+        alignItems: 'center',
         height: '100%',
         flexDirection: 'column',
         justifyContent: 'center'
