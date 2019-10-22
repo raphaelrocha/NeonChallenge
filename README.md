@@ -10,15 +10,21 @@ Os dados do usuário logado e dos seus contatos são todos fiquitícios porém n
 Para ter dados de pessoas usei a api "https://randomuser.me/"
 
 Os dados do pefil são carregados de: 
+
 GET - https://randomuser.me/api/?nat=br
+
 Essa rota retorna um array com apenas um objeto que assumo ser o usuário dono da conta.
 
 Os dados dos contatos são carregados de: 
+
 GET - https://randomuser.me/api/?results=20&nat=br
+
 Essa rota retorna um array com 20 objetos que assumo serem os contatos do usuário.
 
 Para simular uma chamada de api para realição da transferência dos valores, eu precisei usar uma api de testes que aceitasse chamadas POST, para isso usei a api "https://jsonplaceholder.typicode.com/"
+
 POST - "https://jsonplaceholder.typicode.com/posts" 
+
 Essa rota, apesar de aceitar os dados enviados no body da requisição, não faz nada retornando apenas um sucesso com código 200 com um id.
 
 Toda a lógica que deveria ser executada no back-end foi concentrada no pacote <code>src/__mocks__</code>
@@ -30,6 +36,7 @@ Para facilitação do desenvolvimento, foram adicionados ao projeto algumas bibl
 
 <h4>Requisições HTTP</h4>
 "http-status-codes": "^1.3.2",
+
 "react-native-cancelable-fetch": "^0.1.1",
 
 <h4>Tradução</h4>
@@ -40,7 +47,9 @@ Para facilitação do desenvolvimento, foram adicionados ao projeto algumas bibl
 
 <h4>Transição de telas e navegação</h4>
 "react-navigation": "^4.0.10",
+
 "react-navigation-stack": "^1.9.4" 
+
 "react-native-gesture-handler": "^1.4.1",
 
 <h4>Utilidades</h4>
