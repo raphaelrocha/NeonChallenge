@@ -60,6 +60,8 @@ Uma vez aberto o app, ele irá buscar os dados do suposto usuário logado na api
 
 <h4>Tela enviar dinheiro.</h4>
 
+![tela perfil](https://www.dropbox.com/s/vuodwk8mxztgk5p/Screenshot_20191022-092901.png)
+
 Ao acessar esta tela, app vai buscar uam lista de 20 usuários na api randomuser.me e os salvará no armazenamento local do app.
 
 Nesta tela o usuário pode clicar em cada um dos contatos listados para realizar transferencia. Os dados da transferencia (valor e data) também ficam salvos no armazenamento local. Caso escolha fazer uma nova transferencia ao mesmo usuário, os valores sao somados e a data registrada é a data da ultima movimentação.
