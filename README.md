@@ -79,25 +79,25 @@ O gráfico mostra os contatos que receberam transferencias numa lista que vai da
 Para facilitar a execução dos comandos, criei atalhos usando makefile.
 
 <code>
-android:
+android:</br>
 react-native run-android
 
-build:
+build:</br>
 npm install
 
-build-no-cache:
+build-no-cache:</br>
 watchman watch-del-all && rm -rf node_modules/ && npm cache verify && npm install && npm start -- --reset-cache
 
-ios:
+ios:</br>
 make pod-install && react-native run-ios --simulator 'iPhone 6'
 
-ios-device:
+ios-device:</br>
 make pod-install && react-native run-ios --device
 
-pod-install:
+pod-install:</br>
 cd ios && pod install && cd ..
 
-up:
+up:</br>
 react-native start
 </code>
 
