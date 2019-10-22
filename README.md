@@ -13,7 +13,7 @@ Para ter dados de pessoas usei a api "https://randomuser.me/"
 Os dados do pefil são carregados de:<br>
 GET - https://randomuser.me/api/?nat=br<br>
 Essa rota retorna um array com apenas um objeto que assumo ser o usuário dono da conta.
-
+<br>
 Os dados dos contatos são carregados de:<br>
 GET - https://randomuser.me/api/?results=20&nat=br<br>
 Essa rota retorna um array com 20 objetos que assumo serem os contatos do usuário.
