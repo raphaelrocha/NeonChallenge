@@ -78,7 +78,6 @@ O gráfico mostra os contatos que receberam transferencias numa lista que vai da
 
 Para facilitar a execução dos comandos, criei atalhos usando makefile.
 
-<code>
 android:</br>
 react-native run-android
 
@@ -99,7 +98,6 @@ cd ios && pod install && cd ..
 
 up:</br>
 react-native start
-</code>
 
 <h3>Considerações finais</h3>
 
