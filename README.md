@@ -12,11 +12,11 @@ Para ter dados de pessoas usei a api "https://randomuser.me/"
 <h3>Chamadas GET</h3>
 Os dados do <b>pefil</b> são carregados de:<br>
 GET - https://randomuser.me/api/?nat=br<br>
-Essa rota retorna um array com apenas um objeto que assumo ser o usuário dono da conta. 
+Essa rota retorna um array com apenas um objeto que assumo ser o usuário dono da conta. <br>
 
 Os dados dos <b>contatos</b> são carregados de:<br>
 GET - https://randomuser.me/api/?results=20&nat=br<br>
-Essa rota retorna um array com 20 objetos que assumo serem os contatos do usuário.
+Essa rota retorna um array com 20 objetos que assumo serem os contatos do usuário.<br>
 
 <h3>Chamadas POST</h3>
 Para simular uma chamada de api para realição da transferência dos valores, eu precisei usar uma api de testes que aceitasse chamadas POST, para isso usei a api "https://jsonplaceholder.typicode.com/"<br>
