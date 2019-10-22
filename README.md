@@ -14,6 +14,7 @@ Os dados do <b>pefil</b> são carregados de:<br>
 GET - https://randomuser.me/api/?nat=br<br>
 Essa rota retorna um array com apenas um objeto que assumo ser o usuário dono da conta. <br>
 
+
 Os dados dos <b>contatos</b> são carregados de:<br>
 GET - https://randomuser.me/api/?results=20&nat=br<br>
 Essa rota retorna um array com 20 objetos que assumo serem os contatos do usuário.<br>
@@ -51,7 +52,7 @@ Para facilitação do desenvolvimento, foram adicionados ao projeto algumas bibl
 
 <h3>Sobre o app.</h3>
 
-O app possui três telas que permitem o usuário "loogado" ver sua lista de contatos e realizar transferências de valores para qualquer um deles.
+O app possui três telas que permitem o usuário "logado" ver sua lista de contatos e realizar transferências de valores para qualquer um deles.
 
 <h4>Tela inicial Perfil</h4>
 
