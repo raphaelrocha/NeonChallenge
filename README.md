@@ -10,23 +10,17 @@ Os dados do usuário logado e dos seus contatos são todos fiquitícios porém n
 Para ter dados de pessoas usei a api "https://randomuser.me/"
 
 <h3>Chamadas GET</h3>
-Os dados do pefil são carregados de: 
-
-GET - https://randomuser.me/api/?nat=br
-
+Os dados do pefil são carregados de:<br>
+GET - https://randomuser.me/api/?nat=br<br>
 Essa rota retorna um array com apenas um objeto que assumo ser o usuário dono da conta.
 
-Os dados dos contatos são carregados de: 
-
-GET - https://randomuser.me/api/?results=20&nat=br
-
+Os dados dos contatos são carregados de:<br>
+GET - https://randomuser.me/api/?results=20&nat=br<br>
 Essa rota retorna um array com 20 objetos que assumo serem os contatos do usuário.
 
 <h3>Chamadas POST</h3>
-Para simular uma chamada de api para realição da transferência dos valores, eu precisei usar uma api de testes que aceitasse chamadas POST, para isso usei a api "https://jsonplaceholder.typicode.com/"
-
-POST - "https://jsonplaceholder.typicode.com/posts" 
-
+Para simular uma chamada de api para realição da transferência dos valores, eu precisei usar uma api de testes que aceitasse chamadas POST, para isso usei a api "https://jsonplaceholder.typicode.com/"<br>
+POST - "https://jsonplaceholder.typicode.com/posts" <br>
 Essa rota, apesar de aceitar os dados enviados no body da requisição, não faz nada retornando apenas um sucesso com código 200 com um id.
 
 Toda a lógica que deveria ser executada no back-end foi concentrada no pacote <code>src/__mocks__</code>
