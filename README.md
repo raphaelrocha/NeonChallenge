@@ -35,25 +35,23 @@ O app foi desenvolvido usando o framework <b>react-native 0.61.2</b>
 Para facilitação do desenvolvimento, foram adicionados ao projeto algumas bibliotecas.
 
 <h4>Requisições HTTP</h4>
-"http-status-codes": "^1.3.2",
+"http-status-codes": "^1.3.2"
 
-"react-native-cancelable-fetch": "^0.1.1",
+"react-native-cancelable-fetch": "^0.1.1"
 
 <h4>Tradução</h4>
-"i18n-js": "^3.3.0",
+"i18n-js": "^3.3.0"
 
 <h4>Campos com mascaramento adequado para dinheiro.</h4>
 "react-native-masked-text": "^1.13.0",
 
 <h4>Transição de telas e navegação</h4>
-"react-navigation": "^4.0.10",
-
-"react-navigation-stack": "^1.9.4" 
-
-"react-native-gesture-handler": "^1.4.1",
+"react-navigation": "^4.0.10"<br>
+"react-navigation-stack": "^1.9.4"<br> 
+"react-native-gesture-handler": "^1.4.1"<br>
 
 <h4>Utilidades</h4>
-"lodash": "^4.17.15",
+"lodash": "^4.17.15"
 
 <h3>Sobre o app.</h3>
 
