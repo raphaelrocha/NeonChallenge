@@ -74,6 +74,33 @@ O gráfico de movimentações é mostrado apenas se existirem ao menos dois cont
 
 O gráfico mostra os contatos que receberam transferencias numa lista que vai da esquerda para a direita ordenada pelo valor da movimentação onde a maior movimentação estará sempre mais a esquerda.
 
+<h3>Execução do projeto</h3>
+
+Para facilitar a execução dos comandos, criei atalhos usando makefile.
+
+<code>
+android:
+	react-native run-android
+
+build:
+	npm install
+
+build-no-cache:
+	watchman watch-del-all && rm -rf node_modules/ && npm cache verify && npm install && npm start -- --reset-cache
+
+ios:
+	make pod-install && react-native run-ios --simulator 'iPhone 6'
+
+ios-device:
+	make pod-install && react-native run-ios --device
+
+pod-install:
+	cd ios && pod install && cd ..
+
+up:
+	react-native start
+</code>
+
 <h3>Considerações finais</h3>
 
 Como não existe uma API de verdade, os dados estão salvos localmente no dispositivo, porém as classes responsáveis pela logica de GET, POST e salvamento dos dados, estão no pacote <code>__mocks__</code>
