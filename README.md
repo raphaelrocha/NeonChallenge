@@ -21,7 +21,7 @@ Para simular uma chamada de api para realição da transferência dos valores, e
 POST - "https://jsonplaceholder.typicode.com/posts" 
 Essa rota, apesar de aceitar os dados enviados no body da requisição, não faz nada retornando apenas um sucesso com código 200 com um id.
 
-Toda a lógica que deveria ser executada no back-end foi concentrada no pacote <code>src/__mocks__</code>
+Toda a lógica que deveria ser executada no back-end foi concentrada no pacote ...src/__mocks__...
 
 <h2>Sobre o APP</h2>
 
