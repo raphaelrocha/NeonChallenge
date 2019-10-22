@@ -9,6 +9,7 @@ Este é um aplicativo de testes para mostrar minhas habilidades sobre o desenvol
 Os dados do usuário logado e dos seus contatos são todos fiquitícios porém não estão estáticos no app. 
 Para ter dados de pessoas usei a api "https://randomuser.me/"
 
+<h3>Chamadas GET</h3>
 Os dados do pefil são carregados de: 
 
 GET - https://randomuser.me/api/?nat=br
@@ -21,6 +22,7 @@ GET - https://randomuser.me/api/?results=20&nat=br
 
 Essa rota retorna um array com 20 objetos que assumo serem os contatos do usuário.
 
+<h3>Chamadas POST</h3>
 Para simular uma chamada de api para realição da transferência dos valores, eu precisei usar uma api de testes que aceitasse chamadas POST, para isso usei a api "https://jsonplaceholder.typicode.com/"
 
 POST - "https://jsonplaceholder.typicode.com/posts" 
