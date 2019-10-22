@@ -1,4 +1,4 @@
-import { Platform, NativeModules } from 'react-native'
+import {NativeModules, Platform} from 'react-native'
 import I18n from 'i18n-js'
 import en from './en-US' // importa o objeto de traduções para o idioma inglês
 import pt from './pt-BR' // importa o objeto de traduções para o idioma português

@@ -2,6 +2,7 @@ import React, {Component} from 'react';
 import {Image, StyleSheet, Text, View} from 'react-native';
 import colors from "../../../constants/colors";
 import _ from "lodash";
+import {MaskService} from 'react-native-masked-text'
 
 export default class ChartItem extends Component {
 
@@ -73,6 +74,12 @@ export default class ChartItem extends Component {
             marginRight = {marginRight: 16};
         }
 
+        value = MaskService.toMask('money', value, {
+            unit: '',
+            separator: ',',
+            delimiter: '.'
+        });
+
         return (
             <View style={[styles.container,marginLeft,marginRight]}>
 
@@ -114,11 +121,12 @@ export default class ChartItem extends Component {
 
 const frameWh = 45;
 const avatarWh = frameWh - 5;
+const cardWidth = 70;
 
 const styles = StyleSheet.create({
     container:{
         margin: 2,
-        width:70,
+        width:cardWidth,
     },
     barContainer:{
         flex: 1,
@@ -165,6 +173,7 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         padding: 5,
+        maxWidth:cardWidth,
         borderRadius: 10,
 
     },

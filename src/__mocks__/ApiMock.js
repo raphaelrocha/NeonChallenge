@@ -103,7 +103,10 @@ export default class ApiMock {
             let oldRegister = await ApiMockStorage.getTransfersValue(uuid);
             value = parseFloat(value);
             if(oldRegister){
-                oldRegister = parseFloat(oldRegister.value);
+                if(isNaN(oldRegister.value)){
+                    oldRegister.value = 0;
+                }
+                oldRegister.value = parseFloat(oldRegister.value);
                 value = oldRegister.value+value;
             }
             value = value.toString();

@@ -12,7 +12,7 @@ export default class SendMoneyModal extends Component{
     constructor(props) {
         super(props);
         this.state = {
-            text:'R$0,00',
+            text:'',
             value:0,
             disabled:true};
     }
@@ -37,7 +37,10 @@ export default class SendMoneyModal extends Component{
 
                         <TouchableOpacity
                             style={styles.closeButton}
-                            onPress={onPressClose.bind(this)}>
+                            onPress={()=>{
+                                this.setState({text:''});
+                                onPressClose();
+                            }}>
 
                             <Image
                                 style={styles.closeIcon}
@@ -70,7 +73,7 @@ export default class SendMoneyModal extends Component{
                         <TextInputMask
                             keyboardType={ 'number-pad' }
                             multiline={false}
-                            maxLength={13}
+                            maxLength={11}
                             numberOfLines={1}
                             placeholder={'R$0,00'}
                             style={styles.inputValue}

@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import {Image, StyleSheet, Text, TouchableOpacity, View} from 'react-native';
 import colors from "../constants/colors";
-import TextMask from "react-native-masked-text/lib/text-mask";
+import {MaskService} from "react-native-masked-text";
 
 export default class ContactItem extends Component{
 
@@ -30,6 +30,11 @@ export default class ContactItem extends Component{
 
         if(item.transferValue){
             value = parseFloat(item.transferValue).toFixed(2);
+            value = MaskService.toMask('money', value, {
+                unit: 'R$',
+                separator: ',',
+                delimiter: '.'
+            });
         }
 
         return (
@@ -66,10 +71,12 @@ export default class ContactItem extends Component{
 
                     {value
                         ?
-                        <TextMask
-                            style={styles.value}
-                            value={value}
-                            type={'money'}/>
+                        <Text
+                            numberOfLines={1}
+                            ellipsizeMode={'tail'}
+                            style={styles.value}>
+                            {value}
+                        </Text>
                         :
                         null
                     }
