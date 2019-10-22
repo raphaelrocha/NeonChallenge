@@ -10,11 +10,11 @@ Os dados do usuário logado e dos seus contatos são todos fiquitícios porém n
 Para ter dados de pessoas usei a api "https://randomuser.me/"
 
 <h3>Chamadas GET</h3>
-Os dados do pefil são carregados de:<br>
+Os dados do <b>pefil</b> são carregados de:<br>
 GET - https://randomuser.me/api/?nat=br<br>
-Essa rota retorna um array com apenas um objeto que assumo ser o usuário dono da conta.
-<br>
-Os dados dos contatos são carregados de:<br>
+Essa rota retorna um array com apenas um objeto que assumo ser o usuário dono da conta. 
+
+Os dados dos <b>contatos</b> são carregados de:<br>
 GET - https://randomuser.me/api/?results=20&nat=br<br>
 Essa rota retorna um array com 20 objetos que assumo serem os contatos do usuário.
 
