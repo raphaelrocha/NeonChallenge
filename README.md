@@ -28,12 +28,11 @@ Toda a lógica que deveria ser executada no back-end foi concentrada no pacote <
 
 <h2>Bibliotecas usadas</h2>
 
-O app foi desenvolvido usando o framework <b>react-native 0.61.2</br>
+O app foi desenvolvido usando o framework <b>react-native 0.61.2</b></br>
 Para facilitação do desenvolvimento, foram adicionados ao projeto algumas bibliotecas.
 
 <h4>Requisições HTTP</h4>
-"http-status-codes": "^1.3.2"
-
+"http-status-codes": "^1.3.2"<br>
 "react-native-cancelable-fetch": "^0.1.1"
 
 <h4>Tradução</h4>
