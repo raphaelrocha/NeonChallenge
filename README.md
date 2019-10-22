@@ -26,9 +26,9 @@ Essa rota, apesar de aceitar os dados enviados no body da requisição, não faz
 
 Toda a lógica que deveria ser executada no back-end foi concentrada no pacote <code>src/__mocks__</code>
 
-<h2>Sobre o APP</h2>
+<h2>Bibliotecas usadas</h2>
 
-O app foi desenvolvido usando o framework <b>react-native 0.61.2</b>
+O app foi desenvolvido usando o framework <b>react-native 0.61.2</br>
 Para facilitação do desenvolvimento, foram adicionados ao projeto algumas bibliotecas.
 
 <h4>Requisições HTTP</h4>
@@ -50,7 +50,7 @@ Para facilitação do desenvolvimento, foram adicionados ao projeto algumas bibl
 <h4>Utilidades</h4>
 "lodash": "^4.17.15"
 
-<h3>Sobre o app.</h3>
+<h3>Sobre o App.</h3>
 
 O app possui três telas que permitem o usuário "logado" ver sua lista de contatos e realizar transferências de valores para qualquer um deles.
 
