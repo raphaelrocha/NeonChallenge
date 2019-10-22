@@ -79,7 +79,7 @@ O gráfico mostra os contatos que receberam transferencias numa lista que vai da
 Para facilitar a execução dos comandos, criei atalhos usando makefile.
 
 android:</br>
-react-native run-android
+<code>react-native run-android</code>
 
 build:</br>
 npm install
