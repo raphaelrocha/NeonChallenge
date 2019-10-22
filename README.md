@@ -1,6 +1,6 @@
 # NeonChallenge
 
-<h2>Descrição<h2>
+<h2>Descrição</h2>
 
 Este é um aplicativo de testes para mostrar minhas habilidades sobre o desenvolvimento de aplicações móveis multiplataforma usando react-native
 
