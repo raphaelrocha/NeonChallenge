@@ -21,7 +21,7 @@ Para simular uma chamada de api para realição da transferência dos valores, e
 POST - "https://jsonplaceholder.typicode.com/posts" 
 Essa rota, apesar de aceitar os dados enviados no body da requisição, não faz nada retornando apenas um sucesso com código 200 com um id.
 
-Toda a lógica que deveria ser executada no back-end foi concentrada no pacote ...src/__mocks__...
+Toda a lógica que deveria ser executada no back-end foi concentrada no pacote <code>src/__mocks__</code>
 
 <h2>Sobre o APP</h2>
 
@@ -73,7 +73,7 @@ O gráfico mostra os contatos que receberam transferencias numa lista que vai da
 
 <h3>Considerações finais</h3>
 
-Como não existe uma API de verdade, os dados estão salvos localmente no dispositivo, porém as classes responsáveis pela logica de GET, POST e salvamento dos dados, estão no pacote __mocks__
+Como não existe uma API de verdade, os dados estão salvos localmente no dispositivo, porém as classes responsáveis pela logica de GET, POST e salvamento dos dados, estão no pacote <code>__mocks__</code>
 
 
 
