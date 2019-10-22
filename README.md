@@ -82,22 +82,22 @@ android:</br>
 <code>react-native run-android</code>
 
 build:</br>
-npm install
+<code>npm install</code>
 
 build-no-cache:</br>
-watchman watch-del-all && rm -rf node_modules/ && npm cache verify && npm install && npm start -- --reset-cache
+<code>watchman watch-del-all && rm -rf node_modules/ && npm cache verify && npm install && npm start -- --reset-cache</code>
 
 ios:</br>
-make pod-install && react-native run-ios --simulator 'iPhone 6'
+<code>make pod-install && react-native run-ios --simulator 'iPhone 6'</code>
 
 ios-device:</br>
-make pod-install && react-native run-ios --device
+<code>make pod-install && react-native run-ios --device</code>
 
 pod-install:</br>
-cd ios && pod install && cd ..
+<code>cd ios && pod install && cd ..</code>
 
 up:</br>
-react-native start
+<code>react-native start</code>
 
 <h3>Considerações finais</h3>
 
