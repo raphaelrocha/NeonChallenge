@@ -80,25 +80,25 @@ Para facilitar a execução dos comandos, criei atalhos usando makefile.
 
 <code>
 android:
-	react-native run-android
+react-native run-android
 
 build:
-	npm install
+npm install
 
 build-no-cache:
-	watchman watch-del-all && rm -rf node_modules/ && npm cache verify && npm install && npm start -- --reset-cache
+watchman watch-del-all && rm -rf node_modules/ && npm cache verify && npm install && npm start -- --reset-cache
 
 ios:
-	make pod-install && react-native run-ios --simulator 'iPhone 6'
+make pod-install && react-native run-ios --simulator 'iPhone 6'
 
 ios-device:
-	make pod-install && react-native run-ios --device
+make pod-install && react-native run-ios --device
 
 pod-install:
-	cd ios && pod install && cd ..
+cd ios && pod install && cd ..
 
 up:
-	react-native start
+react-native start
 </code>
 
 <h3>Considerações finais</h3>
